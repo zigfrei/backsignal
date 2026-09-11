@@ -1,0 +1,80 @@
+.plusminus {
+  flex-shrink: 0;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 32px;
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
+  outline: none;
+  background-color: transparent;
+  border: none;
+}
+
+.plusminus:before,
+.plusminus:after {
+  content: '';
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transition: 0.35s;
+  width: 21px;
+  height: 3px;
+  border-radius: 0;
+}
+
+.plusminus:before,
+.plusminus:after {
+  background-color: var(--color-primary);
+}
+
+.plusminus:before {
+  transform: translate(-50%, -50%);
+}
+
+.plusminus:after {
+  transform: translate(-50%, -50%) rotate(90deg);
+}
+
+.plusminus.active:before {
+  opacity: 0;
+}
+
+.plusminus.active:after {
+  transform: translate(-50%, -50%) rotate(180deg);
+  height: 3px;
+  width: 21px;
+}
+
+.content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
+  opacity: 0;
+  padding-top: 1rem;
+}
+
+.contentOpen {
+  max-height: 1000px;
+  opacity: 1;
+}
+
+@media (max-width: 768px) {
+  .plusminus {
+    right: 8px;
+  }
+}
+
+.details::details-content {
+  height: 0;
+  overflow-y: hidden;
+  transition: 300ms allow-discrete;
+}
+
+.details[open]::details-content {
+  height: calc-size(auto, size);
+}

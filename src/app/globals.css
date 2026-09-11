@@ -1,0 +1,172 @@
+@import "tailwindcss";
+
+@theme {
+/* Colors */
+--color-primary: #16A085;
+--color-primary-hover: #12806B;
+--color-primary-active: #0E6655;
+--color-secondary: #7ED3C2;
+--color-tertiary: #F2C9A0;
+--color-quaternary: #E6E9EB;
+--color-base-black: #0F2D2E;
+--color-base-white: #fff;
+--color-disabled: #E3F1EE;
+--color-highlight-one: #FC997E;
+--color-highlight-two: #F6AE4A;
+--color-highlight-three: #025080;
+--color-button-shadow-hover: rgb(22 160 133 / 22%);
+--color-button-shadow-active: rgb(22 160 133 / 18%);
+--color-main-background: #FAF9F8;
+--color-secondary-background: #143d3f;
+--color-footer: #E9E8E7;
+
+/* Text and dividers */
+  --color-text-primary: #0F2D2E;
+  --color-text-secondary: #475569;
+  --color-text-muted: #94A3B8;
+  --color-divider: #E6E9EB;
+
+
+
+/* Fonts */
+  --text-h1-mobile: 2.25rem;
+  --text-h1-mobile--line-height: 2.75rem;
+  --text-h1: 3.5rem;
+  --text-h1--line-height: 4rem;
+
+  --text-h2-mobile: 1.875rem;
+  --text-h2-mobile--line-height: 2.375rem;
+  --text-h2: 2.25rem;
+  --text-h2--line-height: 2.75rem;
+
+  --text-h3-mobile: 1.5rem;
+  --text-h3-mobile--line-height: 2rem;
+  --text-h3: 1.75rem;
+  --text-h3--line-height: 2.25rem;
+
+  --text-h4: 1.25rem;
+  --text-h4--line-height: 1.75rem;
+
+  --text-body-large: 1.125rem;
+  --text-body-large--line-height: 1.75rem;
+  --text-body: 1rem;
+  --text-body--line-height: 1.5rem;
+  --text-body-small: 0.875rem;
+  --text-body-small--line-height: 1.25rem;
+  --text-caption: 0.75rem;
+  --text-caption--line-height: 1rem;
+
+  --text-button: 1rem;
+  --text-button--line-height: 1.25rem;
+  --text-button-large: 1.125rem;
+  --text-button-large--line-height: 1.5rem;
+  --text-link: 1rem;
+  --text-link--line-height: 1.5rem;
+
+
+}
+
+@theme inline {
+  --shadow-button-hover: 0 0.375rem 1rem var(--color-button-shadow-hover);
+  --shadow-button-active: 0 0.125rem 0.375rem var(--color-button-shadow-active);
+}
+
+/* 
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+} */
+
+@utility typo-h1 {
+  font-size: var(--text-h1-mobile);
+  line-height: var(--text-h1-mobile--line-height);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+
+  @variant lg {
+    font-size: var(--text-h1);
+    line-height: var(--text-h1--line-height);
+  }
+}
+
+@utility typo-h2 {
+  font-size: var(--text-h2-mobile);
+  line-height: var(--text-h2-mobile--line-height);
+  font-weight: 700;
+
+  @variant lg {
+    font-size: var(--text-h2);
+    line-height: var(--text-h2--line-height);
+  }
+}
+
+@utility typo-h3 {
+  font-size: var(--text-h3-mobile);
+  line-height: var(--text-h3-mobile--line-height);
+  font-weight: 600;
+
+  @variant lg {
+    font-size: var(--text-h3);
+    line-height: var(--text-h3--line-height);
+  }
+}
+
+@utility typo-h4 {
+  font-size: var(--text-h4);
+  line-height: var(--text-h4--line-height);
+  font-weight: 600;
+}
+
+@utility typo-body-large {
+  font-size: var(--text-body-large);
+  line-height: var(--text-body-large--line-height);
+  font-weight: 400;
+}
+
+@utility typo-body {
+  font-size: var(--text-body);
+  line-height: var(--text-body--line-height);
+  font-weight: 400;
+}
+
+@utility typo-body-small {
+  font-size: var(--text-body-small);
+  line-height: var(--text-body-small--line-height);
+  font-weight: 400;
+}
+
+@utility typo-caption {
+  font-size: var(--text-caption);
+  line-height: var(--text-caption--line-height);
+  font-weight: 400;
+}
+
+@utility typo-button {
+  font-size: var(--text-button);
+  line-height: var(--text-button--line-height);
+  /* font-weight: 600; */
+}
+
+@utility typo-button-large {
+  font-size: var(--text-button-large);
+  line-height: var(--text-button-large--line-height);
+  /* font-weight: 600; */
+}
+
+@utility typo-link {
+  font-size: var(--text-link);
+  line-height: var(--text-link--line-height);
+  font-weight: 500;
+}
+
+
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  color: var(--color-text-primary);
+}

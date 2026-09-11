@@ -1,0 +1,35 @@
+.cardImageWrapper {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+
+.cardImageWrapper::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: var(--color-secondary);
+  mix-blend-mode: multiply;
+  opacity: 1;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+:global(.card-wrapper):nth-child(even) .cardImageWrapper::after {
+  background: var(--color-primary);
+}
+
+.cardImage {
+  object-fit: cover;
+}
+
+.card:hover .cardImageWrapper::after {
+  opacity: 0;
+}
+
+@media (max-width: 1024px) {
+  .cardImageWrapper::after {
+    opacity: 0 !important;
+  }
+}
