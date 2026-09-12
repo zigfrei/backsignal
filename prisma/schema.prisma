@@ -1,0 +1,170 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum MembershipRole {
+  OWNER
+  ADMIN
+  MANAGER
+  VIEWER
+}
+
+enum FeedbackTargetType {
+  CAFE
+  RESTAURANT
+  STORE
+  SERVICE
+  PRODUCT
+  OTHER
+}
+
+enum MessageStatus {
+  NEW
+  READ
+  ARCHIVED
+}
+
+enum SubscriptionPlan {
+  FREE
+  PRO
+}
+
+enum SubscriptionStatus {
+  ACTIVE
+  PAST_DUE
+  CANCELED
+  EXPIRED
+}
+
+model User {
+  id            String       @id @default(cuid())
+  name          String
+  email         String       @unique
+  emailVerified Boolean      @default(false)
+  image         String?
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+  memberships   Membership[]
+
+  @@map("users")
+}
+
+model Organization {
+  id           String               @id @default(cuid())
+  name         String
+  slug         String               @unique
+  createdAt    DateTime             @default(now())
+  updatedAt    DateTime             @updatedAt
+  memberships  Membership[]
+  targets      FeedbackTarget[]
+  settings     OrganizationSettings?
+  subscription Subscription?
+
+  @@map("organizations")
+}
+
+model Membership {
+  id             String         @id @default(cuid())
+  role           MembershipRole @default(OWNER)
+  userId         String
+  organizationId String
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
+  user           User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  organization   Organization   @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, organizationId])
+  @@index([organizationId, role])
+  @@map("memberships")
+}
+
+model OrganizationSettings {
+  id                   String       @id @default(cuid())
+  organizationId       String       @unique
+  emailNotifications   Boolean      @default(true)
+  notificationEmail    String?
+  defaultLocale        String       @default("ru")
+  enabledLocales       String[]     @default(["ru"])
+  createdAt            DateTime     @default(now())
+  updatedAt            DateTime     @updatedAt
+  organization         Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+
+  @@map("organization_settings")
+}
+
+model FeedbackTarget {
+  id              String             @id @default(cuid())
+  organizationId  String
+  name            String
+  slug            String
+  type            FeedbackTargetType @default(OTHER)
+  publicName      String
+  welcomeMessage  String?
+  defaultLocale   String             @default("ru")
+  enabledLocales  String[]           @default(["ru"])
+  isActive        Boolean            @default(true)
+  createdAt       DateTime           @default(now())
+  updatedAt       DateTime           @updatedAt
+  organization    Organization       @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  channels        FeedbackChannel[]
+
+  @@unique([organizationId, slug])
+  @@index([organizationId, isActive])
+  @@map("feedback_targets")
+}
+
+model FeedbackChannel {
+  id         String         @id @default(cuid())
+  targetId   String
+  publicId   String         @unique
+  name       String
+  isActive   Boolean        @default(true)
+  createdAt  DateTime       @default(now())
+  updatedAt  DateTime       @updatedAt
+  target     FeedbackTarget @relation(fields: [targetId], references: [id], onDelete: Cascade)
+  messages   Message[]
+
+  @@index([targetId, isActive])
+  @@map("feedback_channels")
+}
+
+model Message {
+  id         String          @id @default(cuid())
+  channelId  String
+  text       String
+  locale     String          @default("ru")
+  status     MessageStatus   @default(NEW)
+  readAt     DateTime?
+  archivedAt DateTime?
+  createdAt  DateTime        @default(now())
+  updatedAt  DateTime        @updatedAt
+  channel    FeedbackChannel @relation(fields: [channelId], references: [id], onDelete: Cascade)
+
+  @@index([channelId, status, createdAt])
+  @@index([status, createdAt])
+  @@map("messages")
+}
+
+model Subscription {
+  id                     String             @id @default(cuid())
+  organizationId         String             @unique
+  plan                   SubscriptionPlan   @default(FREE)
+  status                 SubscriptionStatus @default(ACTIVE)
+  provider               String?
+  providerCustomerId     String?
+  providerSubscriptionId String?            @unique
+  currentPeriodStart     DateTime?
+  currentPeriodEnd       DateTime?
+  cancelAtPeriodEnd      Boolean            @default(false)
+  createdAt              DateTime           @default(now())
+  updatedAt              DateTime           @updatedAt
+  organization           Organization       @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+
+  @@index([status, currentPeriodEnd])
+  @@map("subscriptions")
+}
