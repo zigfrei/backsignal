@@ -14,6 +14,9 @@
 - [x] DAL и проверки доступа созданы
 - [x] `.env.example` добавлен
 - [x] Постоянный домен QR: `https://backsignal.tech/q/{publicId}`
+- [x] Neon разделён на ветки `production` и `stage`
+- [x] Создан отдельный Vercel-проект для ветки `stage`
+- [ ] Ограничить перекрёстные Preview-сборки через Vercel Ignored Build Step
 
 ### 1. Авторизация
 
@@ -103,15 +106,22 @@ Node `22.17.0`, pnpm `10.24.0`, Prisma `7.10.0` зафиксированы в п
 
 - `DATABASE_URL` — pooled Neon URL для runtime.
 - `DIRECT_URL` — direct Neon URL для Prisma migrations.
-- `NEXT_PUBLIC_APP_URL` — `http://localhost:3000` локально, `https://backsignal.tech` в production.
+- `APP_ENV` — `stage` или `production`; нужен, поскольку оба Vercel-проекта считают свой основной деплой Production.
+- `NEXT_PUBLIC_APP_URL` — `http://localhost:3000` локально, публичный URL соответствующего Vercel-проекта после деплоя.
+- Локальная разработка использует Neon-ветку `stage`, а не `production`.
 
 ## Деплой
 
 ### Vercel
 
-- Production получает переменные из Vercel Environment Variables.
+- `master` → Vercel `backsignal` → Neon `production` → `https://backsignal.tech`.
+- `stage` → Vercel `backsignal-stage` → Neon `stage`.
+- В каждом Vercel-проекте его рабочая Git-ветка назначена Production Branch.
+- Production-переменные каждого проекта указывают только на соответствующую Neon-ветку.
+- Не добавлять доступ к production-базе в Preview основного проекта.
+- Из-за общего репозитория push в `stage` также запускает ненужный Preview в `backsignal`; отключить перекрёстные сборки через Ignored Build Step.
 - Миграции: `pnpm db:migrate:deploy`; не использовать `db push` в production.
-- Preview позднее подключить к отдельным Neon branches, не к production-данным.
+- Новые миграции сначала проверять на `stage`, затем применять к `production`.
 
 ### VPS
 
@@ -122,6 +132,7 @@ Node `22.17.0`, pnpm `10.24.0`, Prisma `7.10.0` зафиксированы в п
 
 ## Журнал
 
+- 2026-09-12: созданы отдельные Neon/Vercel-окружения `stage` и `production`; зафиксирована необходимость отключить перекрёстные Preview-сборки.
 - 2026-09-12: Docker и автоматический VPS-деплой вынесены из фундамента в отложенный этап после запуска MVP.
 - 2026-09-12: создан DAL для организаций, объектов и сообщений с проверкой членства и ролей.
 - 2026-09-12: создана и применена первая миграция `20260911213810_init` с мультитенантной доменной схемой.
