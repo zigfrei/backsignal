@@ -1,8 +1,7 @@
 'use client';
 
 import clsx from 'clsx';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { Link, usePathname } from '@/i18n/navigation';
 import { useEffect, useMemo, useState } from 'react';
 import { isMenuItemActive, type MenuItem } from './menu-item';
 

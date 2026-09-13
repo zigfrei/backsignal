@@ -1,0 +1,219 @@
+{
+  "Layout": {
+    "Header": {
+      "aria-label": "Go to homepage",
+      "links": {
+        "for-what": "Why is this needed?",
+        "how-it-works": "How does it work?"
+      },
+      "login": "Login",
+      "signup": "Get Started"
+    },
+    "LocaleSwitcher": {
+      "triggerLabel": "Select language. Current language: {locale}",
+      "title": "Select language",
+      "languages": {
+        "ru": "Русский",
+        "en": "English"
+      }
+    },
+    "Footer": {
+      "description": "Direct connection between customer and business — to hear complaints, fix issues and become better.",
+      "aria-label": "Go to homepage",
+      "links": {
+        "about": "About the product",
+        "for-what": "Why is this needed?",
+        "how-it-works": "How does it work?",
+        "faq": "Questions and answers",
+        "feedback": "Leave your feedback",
+        "privacy": "Privacy Policy"
+      },
+      "copyright": "Back signal. All rights reserved."
+    }
+  },
+  "Landing": {
+    "Hero": {
+      "title": "Find out what your customers think. <accent>Directly.</accent>",
+      "description": "Customer scans QR code and provides feedback without registration. Message is received only by your business.",
+      "cta": "Try for free",
+      "label": "One QR code — dozens of scenarios",
+      "decorator": "Suitable for any business that works with customers",
+      "scenarios": {
+        "cafe": "In the establishment",
+        "service": "After the service",
+        "shop": "In the store",
+        "order": "In the order",
+        "marketplace": "On the marketplace"
+      },
+      "cards": {
+        "cafe": {
+          "imagePath": "/en/hero-card-1.png",
+          "alt": "QR code for collecting feedback in a cafe",
+          "label": "In the establishment"
+        },
+        "service": {
+          "imagePath": "/en/hero-card-2.png",
+          "alt": "QR code for collecting feedback in the services sector",
+          "label": "Services"
+        },
+        "marketplace": {
+          "imagePath": "/en/hero-card-3.png",
+          "alt": "QR code for feedback about delivery and orders",
+          "label": "Marketplaces and Delivery"
+        },
+        "shop": {
+          "imagePath": "/en/hero-card-4.png",
+          "alt": "QR code for feedback in stores and on marketplaces",
+          "label": "Receipts"
+        }
+      }
+    },
+    "ForWhat": {
+      "title": "Why is «Back signal» needed",
+      "description": "It's better to learn about a problem from a client than from an online review.",
+      "cards": {
+        "1": {
+          "title": "To hear a dissatisfied customer",
+          "description": "Give the customer the opportunity to tell you about the problem right away, while they are still with you and the situation can be fixed."
+        },
+        "2": {
+          "title": "To give emotions the right outlet",
+          "description": "If the customer is upset or angry, it's important for them to express themselves. It's better to hear from them directly than to learn about the problem from a public review."
+        },
+        "3": {
+          "title": "To receive not only complaints",
+          "description": "Customers can share ideas and suggestions. And regular guests often know better than others what can be improved."
+        },
+        "4": {
+          "title": "Not to force the customer to adapt",
+          "description": "You don't need your messenger, account or email. Just open the QR code and write."
+        },
+        "5": {
+          "title": "To receive honest feedback",
+          "description": "Without registration and the need to disclose their contacts, customers can more easily say what they really think."
+        },
+        "6": {
+          "title": "To fix problems earlier",
+          "description": "The message is sent directly to the responsible person — without publication on third-party platforms."
+        }
+      }
+    },
+    "HowItWorks": {
+      "pre-title": "Simple process",
+      "title": "How «Back signal» works",
+      "description": "Three simple steps — and you start receiving feedback from your customers.",
+      "cards": {
+        "1": {
+          "label": "Place the QR code",
+          "title": "Place the QR code in a convenient location for the customer",
+          "description": "On the table, counter, receipt, packaging, door or any other place where the customer will see it.",
+          "imagePath": "/en/how-it-works-card-1.png",
+          "imageAlt": "Sign with QR code on the table"
+        },
+        "2": {
+          "label": "Customer leaves feedback",
+          "title": "Customer scans the QR code and leaves feedback",
+          "description": "Customer opens a simple form in the browser, without registration, apps or sharing contact information.",
+          "imagePath": "/en/how-it-works-card-2.png",
+          "imageAlt": "Feedback form on the phone screen"
+        },
+        "3": {
+          "label": "Receive the signal",
+          "title": "You receive a notification",
+          "description": "The message arrives immediately in your personal cabinet or on your email. You can quickly learn what the customer liked, what went wrong or what ideas for improvement there are.",
+          "imagePath": "/en/how-it-works-card-3.png",
+          "imageAlt": "New messages from customers in the personal cabinet"
+        }
+      },
+      "CTA": "Start receiving feedback",
+      "decorator": "All process in one chain. The signal returns back to your business, helping you to get more satisfied customers.",
+      "stages": {
+        "1": {
+          "title": "Your business",
+          "description": "You place the QR code"
+        },
+        "2": {
+          "title": "QR code",
+          "description": "Customer sees and scans it"
+        },
+        "3": {
+          "title": "Customer",
+          "description": "Leaves feedback"
+        },
+        "4": {
+          "title": "Feedback",
+          "description": "Message arrives at your location"
+        },
+        "5": {
+          "title": "Your business",
+          "description": "You learn their opinion and improve"
+        }
+      }
+    },
+    "CTA": {
+      "pre-title": "Start now",
+      "title": "Start listening to your customers",
+      "description": "Create a company page, get a QR code and start collecting feedback today.",
+      "CTA": "Create page for free",
+      "subtitle": "No card · Setup in a few minutes",
+      "CTAImage": {
+        "imagePath": "/en/cta-decorator.png",
+        "imageAlt": "QR code and personal cabinet of the «Back signal» service"
+      }
+    },
+    "FAQ": {
+      "title": "Questions and answers",
+      "items": {
+        "1": {
+          "question": "Do customers need to register?",
+          "answer": "No. The customer scans the QR code and immediately goes to the feedback form. They don't need to create an account, install an app, specify their email or use a specific messenger."
+        },
+        "2": {
+          "question": "Who will see the feedback?",
+          "answer": "The message is not published on the website and does not affect public ratings. Feedback is sent directly to your business and is available in your personal cabinet."
+        },
+        "3": {
+          "question": "Where can I place the QR code?",
+          "answer": "Anywhere convenient for customers to see and scan it: on the table, counter, receipt, packaging, door or any other place. You can also share a regular link to the form."
+        },
+        "4": {
+          "question": "For which businesses is «Back signal» suitable?",
+          "answer": "For any business that works with customers: cafes and restaurants, stores, service industries, delivery, online stores, marketplaces and other B2C directions."
+        }
+      }
+    },
+    "Feedback": {
+      "pre-title": "Your opinion is important",
+      "title": "Send us <accent>back signal</accent>",
+      "description": "Do you have an idea, a comment or just want to share your impression?",
+      "description2": "Scan the QR code or visit the link and write to us.",
+      "benefits": {
+        "1": {
+          "title": "It will take less than a minute"
+        },
+        "2": {
+          "title": "No registration required"
+        },
+        "3": {
+          "title": "Your opinion is really important"
+        }
+      },
+      "note1": "Here will be the QR code for feedback",
+      "note2": "Scan with your phone camera",
+      "note3": "or",
+      "note4": "Click to go to the link or copy it"
+    }
+  },
+  "Dashboard": {},
+  "Auth": {},
+  "PublicFeedback": {},
+  "Common": {},
+  "Meta": {
+    "title": "Back signal — feedback service for customers",
+    "description": "Get feedback from customers directly. Create a company page, place a QR code and learn about complaints, suggestions and problems without public reviews.",
+    "openGraphDescription": "Get feedback from customers directly. Create a company page, place a QR code and learn about complaints, suggestions and problems without public reviews.",
+    "siteName": "Back signal",
+    "openGraphAlt": "Real opinions of your customers",
+    "openGraphImagePath": "/en/og-image.png"
+  }
+}

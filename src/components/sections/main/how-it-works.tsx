@@ -3,38 +3,12 @@ import { HowItWorksCard } from './how-it-works-card';
 import { BigLinkButton } from '@/components/ui/links';
 import { ArrowRightIcon } from '@heroicons/react/24/outline';
 import { FeedbackLoop } from './feedback-loop';
+import { useTranslations } from 'next-intl';
 
-const steps = [
-  {
-    number: '01',
-    label: 'Разместите QR-код',
-    title: 'Разместите QR-код в удобном для клиента месте',
-    description:
-      'На столе, стойке, чеке, упаковке, двери или в любом другом месте, где клиент его увидит.',
-    image: '/how-it-works-card-1.png',
-    imageAlt: 'Табличка с QR-кодом на столе',
-  },
-  {
-    number: '02',
-    label: 'Клиент оставляет отзыв',
-    title: 'Клиент сканирует QR-код и оставляет обратную связь',
-    description:
-      'Клиент открывает простую форму в браузере, без регистрации, приложений и передачи контактных данных.',
-    image: '/how-it-works-card-2.png',
-    imageAlt: 'Форма обратной связи на экране телефона',
-  },
-  {
-    number: '03',
-    label: 'Получите сигнал',
-    title: 'Вы получаете уведомление',
-    description:
-      'Сообщение сразу приходит в ваш личный кабинет или на email. Вы можете быстро узнать, что понравилось клиенту, что пошло не так или какие есть идеи для улучшения.',
-    image: '/how-it-works-card-3.png',
-    imageAlt: 'Новые сообщения клиентов в личном кабинете',
-  },
-];
+const steps = ['01', '02', '03'] as const;
 
 export default function HowItWorks() {
+  const t = useTranslations('Landing.HowItWorks');
   return (
     <SectionBlock
       id='how-it-works'
@@ -43,21 +17,32 @@ export default function HowItWorks() {
     >
       <div className='flex w-full flex-col items-center justify-center gap-2'>
         <p className='typo-caption font-semibold uppercase tracking-[0.16em] text-secondary'>
-          Простой процесс
+          {t('pre-title')}
         </p>
         <h2 className='typo-h2 text-center text-base-white'>
-          Как работает «Обратный сигнал»
+          {t('title')}
         </h2>
         <p className='typo-body-large text-center text-base-white'>
-          Три простых шага — и вы начинаете получать обратную связь от своих
-          клиентов.
+          {t('description')}
         </p>
       </div>
 
       <div className='grid w-full grid-cols-1 gap-6 lg:grid-cols-3'>
-        {steps.map((step) => (
-          <HowItWorksCard key={step.number} {...step} />
-        ))}
+        {steps.map((number) => {
+          const cardKey = `cards.${Number(number)}`;
+
+          return (
+            <HowItWorksCard
+              key={number}
+              number={number}
+              label={t(`${cardKey}.label`)}
+              title={t(`${cardKey}.title`)}
+              description={t(`${cardKey}.description`)}
+              image={t(`${cardKey}.imagePath`)}
+              imageAlt={t(`${cardKey}.imageAlt`)}
+            />
+          );
+        })}
       </div>
 
       <FeedbackLoop />
@@ -66,7 +51,7 @@ export default function HowItWorks() {
         href='/#'
         className='group w-full max-w-[420px] justify-center self-center gap-0 lg:w-auto lg:max-w-none'
       >
-        <span className='px-2'>Начать получать обратную связь</span>
+        <span className='px-2'>{t('CTA')}</span>
 
         <ArrowRightIcon
           aria-hidden='true'

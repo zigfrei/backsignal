@@ -15,36 +15,43 @@ import type { Metadata } from 'next';
 import HowItWorks from '@/components/sections/main/how-it-works';
 import CTA from '@/components/sections/main/cta';
 import Feedback from '@/components/sections/main/feedback';
+import { getLocale, getTranslations } from 'next-intl/server';
 
-const title = 'Обратный сигнал — сервис обратной связи с клиентами';
-const description =
-  'Получайте обратную связь от клиентов напрямую. Создайте страницу компании, разместите QR-код и узнавайте о замечаниях, предложениях и проблемах без публичных отзывов.';
-const openGraphDescription =
-  'Получайте обратную связь от клиентов напрямую. Создайте страницу компании, разместите QR-код и узнавайте о замечаниях, предложениях и проблемах без публичных отзывов.';
+const siteUrl = 'https://backsignal.tech';
 
-export const metadata: Metadata = {
-  title,
-  description,
-  alternates: {
-    canonical: '/',
-  },
-  openGraph: {
-    title,
-    description: openGraphDescription,
-    url: 'https://backsignal.tech',
-    siteName: 'Обратный сигнал',
-    locale: 'ru_RU',
-    type: 'website',
-    images: [
-      {
-        url: '/og-image.png',
-        width: 1200,
-        height: 630,
-        alt: 'Обратный сигнал',
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getLocale();
+  const t = await getTranslations('Meta');
+  const pathname = locale === 'ru' ? '/' : `/${locale}`;
+
+  return {
+    title: t('title'),
+    description: t('description'),
+    alternates: {
+      canonical: pathname,
+      languages: {
+        ru: '/',
+        en: '/en',
       },
-    ],
-  },
-};
+    },
+    openGraph: {
+      title: t('title'),
+      description: t('openGraphDescription'),
+      url: new URL(pathname, siteUrl).toString(),
+      siteName: t('siteName'),
+      locale: locale === 'ru' ? 'ru_RU' : 'en_US',
+      type: 'website',
+      images: [
+        {
+          url: new URL(t('openGraphImagePath'), siteUrl).toString(),
+          width: 1200,
+          height: 630,
+          alt: t('openGraphAlt'),
+        },
+      ],
+    },
+  };
+}
 
 export default function Home() {
   // const faqSchema = {

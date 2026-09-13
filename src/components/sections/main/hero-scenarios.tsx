@@ -6,49 +6,57 @@ import {
   WrenchScrewdriverIcon,
 } from '@heroicons/react/24/outline';
 import HeroScenariosNote from '@/assets/illustrations/hero-scenarios-note.svg';
+import EnHeroScenariosNote from '@/assets/illustrations/en/hero-scenarios-note.svg';
 import { CardLabel } from '@/components/ui/card-label';
+import { useLocale, useTranslations } from 'next-intl';
 
 const scenarios = [
   {
-    label: 'В заведении',
+    labelKey: 'cafe',
     Icon: BuildingStorefrontIcon,
   },
   {
-    label: 'После услуги',
+    labelKey: 'service',
     Icon: WrenchScrewdriverIcon,
   },
   {
-    label: 'В магазине',
+    labelKey: 'shop',
     Icon: ShoppingBagIcon,
   },
   {
-    label: 'В заказе',
+    labelKey: 'order',
     Icon: CubeIcon,
   },
   {
-    label: 'На маркетплейсе',
+    labelKey: 'marketplace',
     Icon: ShoppingCartIcon,
   },
 ];
 
 export function HeroScenarios() {
+  const t = useTranslations('Landing.Hero');
+  const locale = useLocale();
+  const ScenariosNoteComponent =
+    locale === 'en' ? EnHeroScenariosNote : HeroScenariosNote;
+
   return (
     <div className='flex w-full flex-col gap-3'>
       <p className='typo-caption font-semibold uppercase tracking-[0.16em] text-base-white/60'>
-        Один QR-код — десятки сценариев
+        {t('label')}
       </p>
       <div className='flex flex-wrap gap-2'>
-        {scenarios.map(({ label, Icon }) => (
-          <CardLabel key={label} icon={Icon} variant='outline'>
-            {label}
+        {scenarios.map(({ labelKey, Icon }) => (
+          <CardLabel key={labelKey} icon={Icon} variant='outline'>
+            {t(`scenarios.${labelKey}`)}
           </CardLabel>
         ))}
       </div>
       <div className='ml-6 mt-1 w-[23rem] max-w-[calc(100%-1.5rem)]'>
-        <HeroScenariosNote aria-hidden='true' className='h-auto w-full hidden lg:block' />
-        <span className='sr-only'>
-          Подходит для любого бизнеса, который работает с клиентами
-        </span>
+        <ScenariosNoteComponent
+          aria-hidden='true'
+          className='h-auto w-full hidden lg:block'
+        />
+        <span className='sr-only'>{t('decorator')}</span>
       </div>
     </div>
   );

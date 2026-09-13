@@ -2,8 +2,7 @@
 
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 import clsx from 'clsx';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { Link, usePathname } from '@/i18n/navigation';
 import { useEffect, useId, useState } from 'react';
 import { LinkButton } from '../ui/links';
 import Logo from '@/assets/icons/logo.svg';

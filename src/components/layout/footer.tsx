@@ -1,31 +1,33 @@
-import Link from 'next/link';
-import Logo from '@/assets/icons/logo3.svg';
+import { Link } from '@/i18n/navigation';
+import Logo from '@/assets/icons/logo.svg';
+import EnLogo from '@/assets/icons/en/logo.svg';
 // import InstagramIcon from '@/assets/icons/instagram.svg';
 import TelegramIcon from '@/assets/icons/telegram.svg';
 import MaxIcon from '@/assets/icons/max.svg';
 import ViberIcon from '@/assets/icons/viber.svg';
 import WhatsappIcon from '@/assets/icons/whatsapp.svg';
 import { Icon } from '@iconify/react';
-// import VKIcon from '@/assets/icons/vkontakte.svg';
-// import TikTokIcon from '@/assets/icons/tiktok.svg';
-// import FacebookIcon from '@/assets/icons/facebook.svg';
-// import ThreadsIcon from '@/assets/icons/threads.svg';
+import { useLocale, useTranslations } from 'next-intl';
+
 
 export function Footer() {
+  const t = useTranslations('Layout.Footer');
+  const locale = useLocale();
+    const LogoComponent = locale === 'en' ? EnLogo : Logo;
   return (
     <footer className='w-full bg-footer border-t-[1px] border-text-secondary'>
       <div className='w-full px-4 py-6 lg:px-12 lg:py-16 max-w-[1440px] flex flex-col items-start justify-start mx-auto'>
         <div className='flex flex-col lg:flex-row items-start justify-between mx-auto gap-4 lg:gap-16'>
           <div className='w-full flex flex-col items-start justify-start gap-4'>
-            <Link href='/' aria-label='На главную'>
-              <Logo className='w-[250px] h-[56px] transition-transform duration-300 ease-out hover:scale-105 cursor-pointer' />
+            <Link href='/' aria-label={t('aria-label')}>
+              <LogoComponent className='h-[56px] w-auto cursor-pointer transition-transform duration-300 ease-out hover:scale-105' />
             </Link>
             <p className='typo-body-large text-left'>
-              Прямая связь между клиентом и бизнесом — чтобы слышать замечания, исправлять недочёты и становиться лучше.
+              {t('description')}
             </p>
           </div>
           <div className='w-full flex flex-col items-start justify-start gap-4'>
-            <p className='typo-body-large'>О продукте</p>
+            <p className='typo-body-large'>{t('links.about')}</p>
             <nav>
               <ul className='flex flex-col items-start justify-start gap-2'>
                 <li>
@@ -33,7 +35,7 @@ export function Footer() {
                     href='/#for-what'
                     className='typo-body text-base-black inline-block border-b-[1px] border-transparent hover:border-primary hover:text-primary transition-[color,border-color] duration-200'
                   >
-                    Зачем это нужно?
+                    {t('links.for-what')}
                   </Link>
                 </li>
                 <li>
@@ -41,7 +43,7 @@ export function Footer() {
                     href='/#how-it-works'
                     className='typo-body text-base-black inline-block border-b-[1px] border-transparent hover:border-primary hover:text-primary transition-[color,border-color] duration-200'
                   >
-                    Как это работает?
+                    {t('links.how-it-works')}
                   </Link>
                 </li>
                 <li>
@@ -49,7 +51,7 @@ export function Footer() {
                     href='/#faq'
                     className='typo-body text-base-black inline-block border-b-[1px] border-transparent hover:border-primary hover:text-primary transition-[color,border-color] duration-200'
                   >
-                    FAQ
+                    {t('links.faq')}
                   </Link>
                 </li>
                 <li>
@@ -57,7 +59,7 @@ export function Footer() {
                     href='/#feedback'
                     className='typo-body text-base-black inline-block border-b-[1px] border-transparent hover:border-primary hover:text-primary transition-[color,border-color] duration-200'
                   >
-                    Оставь свой сигнал
+                    {t('links.feedback')}
                   </Link>
                 </li>
               </ul>
@@ -237,13 +239,13 @@ export function Footer() {
         <div className='w-full h-[1px] bg-base-black my-6 lg:mt-16 lg:mb-8'></div>
         <div className='w-full flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4'>
           <p className='typo-caption lg:text-center'>
-            © {new Date().getFullYear()} Обратный Сигнал. Все права защищены.
+            © {new Date().getFullYear()} {t('copyright')}
           </p>
           <Link
             href='/politika-konfidencialnosti'
             className='typo-body text-base-black inline-block border-b-[1px] border-transparent hover:border-primary hover:text-primary transition-[color,border-color] duration-200'
           >
-            Политика конфиденциальности
+            {t('links.privacy')}
           </Link>
         </div>
       </div>
