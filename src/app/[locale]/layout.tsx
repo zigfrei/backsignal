@@ -1,8 +1,6 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import '../globals.css';
-import { Header } from '@/components/layout/header';
-import { Footer } from '@/components/layout/footer';
 import { NextIntlClientProvider } from 'next-intl';
 import { getLocale } from 'next-intl/server';
 import { routing } from '@/i18n/routing';
@@ -60,9 +58,7 @@ export default async function RootLayout({
       >
         <NextIntlClientProvider>
           {/* {googleTagManagerId ? <GoogleTagManager containerId={googleTagManagerId} /> : null} */}
-          <Header />
           {children}
-          <Footer />
           {/* {yandexMetrikaId ? <YandexMetrika counterId={yandexMetrikaId} /> : null} */}
         </NextIntlClientProvider>
       </body>

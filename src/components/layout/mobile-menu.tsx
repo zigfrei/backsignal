@@ -3,16 +3,16 @@
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 import clsx from 'clsx';
 import { Link, usePathname } from '@/i18n/navigation';
-import { useEffect, useId, useState } from 'react';
-import { LinkButton } from '../ui/links';
+import { type ReactNode, useEffect, useId, useState } from 'react';
 import Logo from '@/assets/icons/logo.svg';
 import { isMenuItemActive, type MenuItem } from './menu-item';
 
 interface MobileMenuProps {
   items: MenuItem[];
+  authActions: ReactNode;
 }
 
-export function MobileMenu({ items }: MobileMenuProps) {
+export function MobileMenu({ items, authActions }: MobileMenuProps) {
   const animationDurationMs = 300;
   const pathname = usePathname();
   const [isMounted, setIsMounted] = useState(false);
@@ -149,13 +149,9 @@ export function MobileMenu({ items }: MobileMenuProps) {
               </ul>
             </nav>
 
-            <LinkButton
-              href='/kontakty/#obraschenie'
-              onClick={closeMenu}
-              className={clsx('w-full justify-center mb-4')}
-            >
-              Связаться
-            </LinkButton>
+            <div className='mb-4 flex flex-col gap-3'>
+              {authActions}
+            </div>
           </div>
         </div>
       )}

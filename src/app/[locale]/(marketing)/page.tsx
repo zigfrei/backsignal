@@ -10,7 +10,6 @@ import ForWhat from '@/components/sections/main/for-what';
 // import Documents from '@/components/sections/main/documents';
 // import B2B from '@/components/sections/main/b2b';
 // import Quiz from '@/components/sections/main/quiz';
-import UIKIT from '@/components/sections/ui-kit/main';
 import type { Metadata } from 'next';
 import HowItWorks from '@/components/sections/main/how-it-works';
 import CTA from '@/components/sections/main/cta';

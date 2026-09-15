@@ -4,10 +4,12 @@
       "aria-label": "Go to homepage",
       "links": {
         "for-what": "Why is this needed?",
-        "how-it-works": "How does it work?"
+        "how-it-works": "How does it work?",
+        "faq": "FAQ"
       },
       "login": "Login",
-      "signup": "Get Started"
+      "signup": "Get Started",
+      "dashboard": "Dashboard"
     },
     "LocaleSwitcher": {
       "triggerLabel": "Select language. Current language: {locale}",
@@ -204,8 +206,90 @@
       "note4": "Click to go to the link or copy it"
     }
   },
-  "Dashboard": {},
-  "Auth": {},
+  "Dashboard": {
+    "header": "Dashboard",
+    "title": "Test dashboard",
+    "name": "Name",
+    "email": "Email"
+  },
+  "Auth": {
+    "Fields": {
+      "showPassword": "Show password",
+      "hidePassword": "Hide password"
+    },
+    "Signup": {
+      "title": "Sign up",
+      "description": "Create an account to start receiving feedback.",
+      "name": "Name",
+      "email": "Email",
+      "password": "Password",
+      "submit": "Create account",
+      "submitting": "Creating account…",
+      "success": "If this address can be used for registration, we sent an email to it. Follow the link to confirm your email.",
+      "hasAccount": "Already have an account?",
+      "login": "Log in",
+      "errors": {
+        "name": "Enter at least 2 characters.",
+        "email": "Enter a valid email address.",
+        "password": "Password must be at least 8 characters.",
+        "userAlreadyExists": "A user with this email address already exists.",
+        "default": "Could not create your account. Please try again."
+      }
+    },
+    "Login": {
+      "title": "Log in",
+      "description": "Log in to your account.",
+      "email": "Email",
+      "password": "Password",
+      "submit": "Log in",
+      "submitting": "Logging in…",
+      "forgotPassword": "Forgot your password?",
+      "noAccount": "Don't have an account?",
+      "signup": "Sign up",
+      "errors": {
+        "email": "Enter a valid email address.",
+        "password": "Enter your password.",
+        "emailNotVerified": "Confirm your email address. We sent you a new email.",
+        "default": "Could not log in. Check your email and password."
+      }
+    },
+    "ForgotPassword": {
+      "title": "Reset password",
+      "description": "Enter the email address you used when signing up.",
+      "email": "Email",
+      "submit": "Send reset link",
+      "submitting": "Sending…",
+      "success": "If an account with this email exists, we sent a password reset link.",
+      "backToLogin": "Back to login",
+      "errors": {
+        "email": "Enter a valid email address.",
+        "default": "Could not send the email. Please try again."
+      }
+    },
+    "ResetPassword": {
+      "title": "New password",
+      "description": "Create a new password for your account.",
+      "password": "New password",
+      "passwordConfirmation": "Confirm password",
+      "submit": "Save password",
+      "submitting": "Saving…",
+      "success": "Your password has been changed. You can now log in.",
+      "login": "Log in",
+      "invalidToken": "This link is invalid or has expired.",
+      "requestAgain": "Request a new link",
+      "errors": {
+        "password": "Password must be at least 8 characters.",
+        "confirmation": "Confirm your password.",
+        "mismatch": "Passwords do not match.",
+        "default": "Could not change your password. Request a new link."
+      }
+    },
+    "Logout": {
+      "submit": "Log out",
+      "pending": "Logging out…",
+      "error": "Could not log out. Please try again."
+    }
+  },
   "PublicFeedback": {},
   "Common": {},
   "Meta": {

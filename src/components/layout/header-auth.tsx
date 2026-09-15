@@ -6,7 +6,6 @@ import { type MenuItem } from './menu-item';
 import { MobileMenu } from './mobile-menu';
 import { useLocale, useTranslations } from 'next-intl';
 import { LocaleSwitcher } from './locale-switcher';
-import { HeaderAuthActions } from './header-auth-actions';
 
 const menuItemConfig = [
   {
@@ -45,11 +44,11 @@ export function Header() {
 
         <div className='flex items-center justify-center gap-4'>
           <LocaleSwitcher />
-          <HeaderAuthActions />
+          {/* <HeaderAuthActions /> */}
           <div className='lg:hidden'>
             <MobileMenu
               items={menuItems}
-              authActions={<HeaderAuthActions variant='mobile' />}
+              authActions={<div />}
             />
           </div>
         </div>

@@ -1,12 +1,6 @@
 import { Link } from '@/i18n/navigation';
 import Logo from '@/assets/icons/logo.svg';
 import EnLogo from '@/assets/icons/en/logo.svg';
-// import InstagramIcon from '@/assets/icons/instagram.svg';
-import TelegramIcon from '@/assets/icons/telegram.svg';
-import MaxIcon from '@/assets/icons/max.svg';
-import ViberIcon from '@/assets/icons/viber.svg';
-import WhatsappIcon from '@/assets/icons/whatsapp.svg';
-import { Icon } from '@iconify/react';
 import { useLocale, useTranslations } from 'next-intl';
 
 
@@ -20,7 +14,7 @@ export function Footer() {
         <div className='flex flex-col lg:flex-row items-start justify-between mx-auto gap-4 lg:gap-16'>
           <div className='w-full flex flex-col items-start justify-start gap-4'>
             <Link href='/' aria-label={t('aria-label')}>
-              <LogoComponent className='h-[56px] w-auto cursor-pointer transition-transform duration-300 ease-out hover:scale-105' />
+              <LogoComponent className='h-[60px] w-auto cursor-pointer transition-transform duration-300 ease-out hover:scale-105' />
             </Link>
             <p className='typo-body-large text-left'>
               {t('description')}
@@ -65,78 +59,16 @@ export function Footer() {
               </ul>
             </nav>
           </div>
-          <div className='w-full flex flex-col items-start justify-start gap-4'>
-            {/* <p className='typo-body-large'>Ссылки</p>
-            <nav>
-              <ul className='flex flex-col items-start justify-start gap-2'>
-                <li>
-                  <Link
-                    href='/kontraktnoe-proizvodstvo-moyushchih-i-dezinficiruyushchih-sredstv'
-                    className='typo-body text-base-black inline-block border-b-[1px] border-transparent hover:border-primary hover:text-primary transition-[color,border-color] duration-200'
-                  >
-                    Контрактное производство
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href='/produktsiya'
-                    className='typo-body text-base-black inline-block border-b-[1px] border-transparent hover:border-primary hover:text-primary transition-[color,border-color] duration-200'
-                  >
-                    Продукция
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href='/o-kompanii'
-                    className='typo-body text-base-black inline-block border-b-[1px] border-transparent hover:border-primary hover:text-primary transition-[color,border-color] duration-200'
-                  >
-                    О компании
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href='/kontakty'
-                    className='typo-body text-base-black inline-block border-b-[1px] border-transparent hover:border-primary hover:text-primary transition-[color,border-color] duration-200'
-                  >
-                    Контакты
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href='/sertifikaty'
-                    className='typo-body text-base-black inline-block border-b-[1px] border-transparent hover:border-primary hover:text-primary transition-[color,border-color] duration-200'
-                  >
-                    Сертификаты
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href='/usloviya-sotrudnichestva'
-                    className='typo-body text-base-black inline-block border-b-[1px] border-transparent hover:border-primary hover:text-primary transition-[color,border-color] duration-200'
-                  >
-                    Условия сотрудничества
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href='/razrabotka-sredstva-seifgat'
-                    className='typo-body text-base-black inline-block border-b-[1px] border-transparent hover:border-primary hover:text-primary transition-[color,border-color] duration-200'
-                  >
-                    Разработка средства «СейфГат»
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href='/sredstvo-dlya-myagkih-okon'
-                    className='typo-body text-base-black inline-block border-b-[1px] border-transparent hover:border-primary hover:text-primary transition-[color,border-color] duration-200'
-                  >
-                    Средство для мягких окон
-                  </Link>
-                </li>
-              </ul>
-            </nav> */}
-          </div>
-          <div className='w-full flex flex-col items-start justify-start gap-4'>
+          <div className='w-full flex flex-col items-end justify-end gap-4'>
+                                  <p className='typo-caption lg:text-right'>
+            © {new Date().getFullYear()} {t('copyright')}
+          </p>
+          <Link
+            href='/politika-konfidencialnosti'
+            className='typo-body text-base-black inline-block border-b-[1px] border-transparent hover:border-primary hover:text-primary transition-[color,border-color] duration-200'
+          >
+            {t('links.privacy')}
+          </Link>
             {/* <p className='typo-h5'>Мессенджеры</p>
             <ul className='flex items-center justify-center gap-2'>
               <li>
@@ -236,8 +168,8 @@ export function Footer() {
             {/* </ul> */}
           </div>
         </div>
-        <div className='w-full h-[1px] bg-base-black my-6 lg:mt-16 lg:mb-8'></div>
-        <div className='w-full flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4'>
+        {/* <div className='w-full h-[1px] bg-base-black my-6 lg:mt-16 lg:mb-8'></div> */}
+        {/* <div className='w-full flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4'>
           <p className='typo-caption lg:text-center'>
             © {new Date().getFullYear()} {t('copyright')}
           </p>
@@ -247,7 +179,7 @@ export function Footer() {
           >
             {t('links.privacy')}
           </Link>
-        </div>
+        </div> */}
       </div>
     </footer>
   );
