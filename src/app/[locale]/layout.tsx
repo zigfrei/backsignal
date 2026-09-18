@@ -53,7 +53,7 @@ export default async function RootLayout({
   return (
     <html lang={locale} className={`${inter.className} antialiased`}>
       <body
-        className={`bg-main-background text-base-black flex flex-col items-center justify-center min-h-screen`}
+        className='bg-main-background text-base-black flex min-h-dvh flex-col items-center justify-start'
       >
         <NextIntlClientProvider>
           {/* {googleTagManagerId ? <GoogleTagManager containerId={googleTagManagerId} /> : null} */}
