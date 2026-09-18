@@ -40,6 +40,20 @@ export const auth = betterAuth({
   database: prismaAdapter(prisma, {
     provider: 'postgresql',
   }),
+  user: {
+    additionalFields: {
+      preferredLocale: { type: 'string', required: false, defaultValue: 'ru', input: false },
+    },
+  },
+  databaseHooks: {
+    user: {
+      create: {
+        before: async (user, context) => ({
+          data: { ...user, preferredLocale: getEmailLocale(context?.request) },
+        }),
+      },
+    },
+  },
   account: {
     accountLinking: {
       enabled: true,
@@ -65,15 +79,18 @@ export const auth = betterAuth({
     expiresIn: 60 * 60,
     sendVerificationEmail: async ({ user, url }, request) => {
       if (request && new URL(request.url).pathname.endsWith('/sign-up/email')) return;
-      const yandexAccount = await prisma.account.findFirst({
-        where: { userId: user.id, providerId: 'yandex' },
-        select: { id: true },
+      const recipient = await prisma.user.findUniqueOrThrow({
+        where: { id: user.id },
+        select: {
+          preferredLocale: true,
+          accounts: { where: { providerId: 'yandex' }, select: { id: true }, take: 1 },
+        },
       });
       const message = createVerificationEmail({
-        locale: getEmailLocale(request),
+        locale: recipient.preferredLocale === 'en' ? 'en' : 'ru',
         name: user.name,
         url,
-        notificationOnly: Boolean(yandexAccount),
+        notificationOnly: recipient.accounts.length > 0,
       });
 
       await sendAuthEmail({
@@ -89,9 +106,12 @@ export const auth = betterAuth({
     maxPasswordLength: 128,
     resetPasswordTokenExpiresIn: 60 * 60,
     revokeSessionsOnPasswordReset: true,
-    sendResetPassword: async ({ user, url }, request) => {
+    sendResetPassword: async ({ user, url }) => {
+      const recipient = await prisma.user.findUniqueOrThrow({
+        where: { id: user.id }, select: { preferredLocale: true },
+      });
       const message = createResetPasswordEmail({
-        locale: getEmailLocale(request),
+        locale: recipient.preferredLocale === 'en' ? 'en' : 'ru',
         name: user.name,
         url,
       });

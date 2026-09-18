@@ -71,7 +71,7 @@ export async function createFirstOrganization(userId: string, name: string, loca
         name,
         slug: randomUUID(),
         memberships: { create: { userId, role: 'OWNER' } },
-        settings: { create: { defaultLocale: locale, notificationLocale: locale, enabledLocales: ['ru', 'en'] } },
+        settings: { create: { defaultLocale: locale, enabledLocales: ['ru', 'en'] } },
         subscription: { create: { plan: 'FREE', status: 'ACTIVE' } },
         targets: {
           create: {

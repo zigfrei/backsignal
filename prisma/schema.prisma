@@ -60,6 +60,7 @@ model User {
   name               String
   email              String              @unique
   emailVerified      Boolean             @default(false)
+  preferredLocale    String              @default("ru")
   image              String?
   createdAt          DateTime            @default(now())
   updatedAt          DateTime            @updatedAt
@@ -152,7 +153,6 @@ model OrganizationSettings {
   organizationId     String       @unique
   emailNotifications Boolean      @default(true)
   notificationEmail  String?
-  notificationLocale String       @default("ru")
   defaultLocale      String       @default("ru")
   enabledLocales     String[]     @default(["ru"])
   createdAt          DateTime     @default(now())

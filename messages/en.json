@@ -1,4 +1,7 @@
 {
+  "System": {
+    "Snackbar": {"label":"System notifications","close":"Dismiss notification"}
+  },
   "Layout": {
     "Header": {
       "aria-label": "Go to homepage",
@@ -20,6 +23,8 @@
     "LocaleSwitcher": {
       "triggerLabel": "Select language. Current language: {locale}",
       "title": "Select language",
+      "error": "Could not save your language. Please try again.",
+      "migrationRequired": "Language preferences are unavailable: the database needs an update. Please contact the administrator.",
       "languages": {
         "ru": "Русский",
         "en": "English"
@@ -247,7 +252,7 @@
       }
     },
     "Notifications": {
-      "title": "Email notifications", "enabled": "Notify me about new messages", "recipient": "Recipient: {email}", "language": "Email language", "save": "Save", "saving": "Saving…", "success": "Settings saved", "error": "Could not save settings. Please try again.", "unverified": "Verify your account email to receive notifications.",
+      "title": "Email notifications", "enabled": "Notify me about new messages", "recipient": "Recipient: {email}", "save": "Save", "saving": "Saving…", "success": "Settings saved", "error": "Could not save settings. Please try again.", "unverified": "Verify your account email to receive notifications.",
       "verifyEmail": "Send verification email",
       "activationPending": "Notifications will turn on automatically after email verification. You can then disable them here.",
       "verificationSending": "Sending…",

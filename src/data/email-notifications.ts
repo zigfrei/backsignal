@@ -39,7 +39,7 @@ export async function enqueueFeedbackEmails(tx: Prisma.TransactionClient, messag
   const owner = organization.memberships[0]?.user;
   if (!owner) return [];
   const origin = notificationOrigin();
-  const template = createFeedbackEmail({ locale: organization.settings.notificationLocale, name: message.channel.target.publicName, text: message.text, mood: message.mood, origin, messageId });
+  const template = createFeedbackEmail({ locale: owner.preferredLocale, name: message.channel.target.publicName, text: message.text, mood: message.mood, origin, messageId });
   const job = await tx.emailNotification.create({ data: {
     messageId, recipientUserId: owner.id, recipientEmail: owner.email,
     origin, senderEmail: process.env.NOTIFICATION_EMAIL_FROM || 'Backsignal <notifications@notify.backsignal.tech>', ...template,
@@ -53,13 +53,13 @@ export async function getNotificationSettings(userId: string, organizationId: st
     prisma.organizationSettings.findUniqueOrThrow({ where: { organizationId } }),
     prisma.user.findUniqueOrThrow({ where: { id: userId }, select: { email: true, emailVerified: true } }),
   ]);
-  return { enabled: settings.emailNotifications, locale: settings.notificationLocale === 'en' ? 'en' as const : 'ru' as const, ...user };
+  return { enabled: settings.emailNotifications, ...user };
 }
 
-export async function saveNotificationSettings(userId: string, organizationId: string, enabled: boolean, locale: string) {
+export async function saveNotificationSettings(userId: string, organizationId: string, enabled: boolean) {
   await requireOrganizationRole(userId, organizationId, ['OWNER']);
   await prisma.$transaction(async (tx) => {
-    await tx.organizationSettings.update({ where: { organizationId }, data: { emailNotifications: enabled, notificationLocale: locale } });
+    await tx.organizationSettings.update({ where: { organizationId }, data: { emailNotifications: enabled } });
     if (!enabled) await tx.emailNotification.updateMany({ where: { status: 'PENDING', message: { channel: { target: { organizationId } } } }, data: { status: 'CANCELED' } });
   });
 }

@@ -6,6 +6,7 @@ import { DashboardShell } from '@/components/dashboard/dashboard-shell';
 import { getUserOnboarding } from '@/data/onboarding';
 import { OnboardingDialog } from '@/components/dashboard/onboarding-dialog';
 import { countUnreadOrganizationMessages } from '@/data/messages';
+import { LocalePreferenceSync } from '@/components/dashboard/locale-preference-sync';
 
 export const metadata: Metadata = {
   robots: { index: false, follow: false },
@@ -27,6 +28,7 @@ export default async function DashboardLayout({
       user={{ name: session.user.name, email: session.user.email, image: session.user.image }}
     >
       {children}
+      <LocalePreferenceSync />
       <OnboardingDialog {...onboarding} />
     </DashboardShell>
   );
