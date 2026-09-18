@@ -1,7 +1,6 @@
-import { ArrowRightIcon } from '@heroicons/react/24/outline';
 import Image from 'next/image';
-import { BigLinkButton } from '@/components/ui/links';
 import SectionBlock from '@/components/ui/section';
+import { LandingCta } from './landing-cta';
 import { useTranslations } from 'next-intl';
 
 export default function CTA() {
@@ -24,16 +23,10 @@ export default function CTA() {
             {t('description')}
           </p>
 
-          <BigLinkButton
-            href='/#'
+          <LandingCta
+            guestLabel={t('CTA')}
             className='group mt-8 w-full max-w-[28rem] justify-center gap-0 sm:w-auto'
-          >
-            <span className='px-2'>{t('CTA')}</span>
-            <ArrowRightIcon
-              aria-hidden='true'
-              className='size-6 shrink-0 transition-transform duration-300 ease-in-out group-hover:translate-x-1'
-            />
-          </BigLinkButton>
+          />
 
           <p className='mt-4 typo-body-small font-semibold text-text-secondary'>
             {t('subtitle')}

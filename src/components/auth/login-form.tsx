@@ -9,6 +9,7 @@ import { z } from 'zod';
 import { Link, useRouter } from '@/i18n/navigation';
 import { signIn } from '@/lib/auth-client';
 import { FormField } from '@/components/ui/form-field';
+import { YandexAuthButton } from '@/components/auth/yandex-auth-button';
 
 export function LoginForm() {
   const t = useTranslations('Auth.Login');
@@ -80,6 +81,8 @@ export function LoginForm() {
       >
         {isSubmitting ? t('submitting') : t('submit')}
       </button>
+
+      <YandexAuthButton />
 
       <p className='typo-body-small'>
         {t('noAccount')}{' '}

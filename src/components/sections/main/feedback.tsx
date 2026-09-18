@@ -31,7 +31,7 @@ export default function Feedback() {
       className='scroll-mt-20 bg-secondary-background'
       wrapperClassName='py-8 lg:py-18'
     >
-      <div className='relative grid w-full overflow-hidden rounded-2xl border border-primary/20 bg-base-black lg:grid-cols-[minmax(0,1.35fr)_minmax(22rem,0.65fr)]'>
+      <div className='relative grid min-w-0 w-full grid-cols-1 overflow-hidden rounded-2xl border border-primary/20 bg-base-black lg:grid-cols-[minmax(0,1.35fr)_minmax(22rem,0.65fr)]'>
         <div
           aria-hidden='true'
           className='absolute -right-24 -top-48 size-[32rem] rounded-full bg-primary/10'
@@ -67,14 +67,14 @@ export default function Feedback() {
                 <span className='flex size-12 shrink-0 items-center justify-center rounded-full bg-primary/20 text-secondary'>
                   <Icon aria-hidden='true' className='size-7 stroke-2' />
                 </span>
-                <span className='typo-body text-base-white text-center'>{t(`benefits.${index+1}.title`)}</span>
+                <span className='typo-body text-base-white lg:text-center'>{t(`benefits.${index+1}.title`)}</span>
               </li>
             ))}
           </ul>
         </div>
 
-        <div className='relative z-10 flex items-center justify-center p-6 pt-0 sm:p-10 sm:pt-0 lg:p-12'>
-          <div className='flex w-full max-w-md flex-col items-center rounded-2xl bg-base-white p-5 text-center shadow-xl sm:p-8'>
+        <div className='relative z-10 flex min-w-0 items-center justify-center p-6 pt-0 sm:p-10 sm:pt-0 lg:p-12'>
+          <div className='flex min-w-0 w-full max-w-md flex-col items-center rounded-2xl bg-base-white p-5 text-center shadow-xl sm:p-8'>
             <div
               role='img'
               aria-label={t('note1')}
@@ -93,7 +93,7 @@ export default function Feedback() {
               <span className='h-px flex-1 bg-divider' />
             </div>
 
-            <div className='flex w-full items-center gap-1 rounded-lg border border-primary/20 bg-disabled/70 p-1 text-primary transition-colors duration-300 hover:bg-disabled'>
+            <div className='flex min-w-0 w-full items-center gap-1 rounded-lg border border-primary/20 bg-disabled/70 p-1 text-primary transition-colors duration-300 hover:bg-disabled'>
               <a
                 href={feedbackUrl}
                 className='flex min-h-11 min-w-0 flex-1 items-center justify-center gap-2 rounded-md px-3 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary'

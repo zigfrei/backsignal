@@ -1,6 +1,7 @@
 import 'server-only';
 
 import { Resend } from 'resend';
+import { EmailDeliveryError } from './types';
 
 import type {
   EmailMessage,
@@ -8,22 +9,31 @@ import type {
   EmailSendResult,
 } from './types';
 
+class TimedResend extends Resend {
+  override fetchRequest<T>(path: string, options = {}) {
+    return super.fetchRequest<T>(path, { ...options, signal: AbortSignal.timeout(15_000) });
+  }
+}
+
 export class ResendEmailSender implements EmailSender {
   private readonly client: Resend;
 
   constructor(apiKey: string) {
-    this.client = new Resend(apiKey);
+    this.client = new TimedResend(apiKey);
   }
 
   async send(message: EmailMessage): Promise<EmailSendResult> {
-    const { data, error } = await this.client.emails.send(message);
+    const { idempotencyKey, ...payload } = message;
+    const { data, error } = await this.client.emails.send(payload, idempotencyKey ? { idempotencyKey } : undefined);
 
     if (error) {
-      throw new Error(`Resend failed to send email: ${error.message}`);
+      const status = error.statusCode;
+      const ambiguous = status === null || status === undefined || status >= 500;
+      throw new EmailDeliveryError(error.name || (status ? `http_${status}` : 'provider_error'), status === 429 || ambiguous, ambiguous);
     }
 
     if (!data) {
-      throw new Error('Resend did not return an email id');
+      throw new EmailDeliveryError('missing_response', true, true);
     }
 
     return { id: data.id };

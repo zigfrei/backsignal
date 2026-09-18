@@ -7,8 +7,9 @@ import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
 import { getPathname, Link } from '@/i18n/navigation';
-import { signUp } from '@/lib/auth-client';
+import { sendVerificationEmail, signUp } from '@/lib/auth-client';
 import { FormField } from '@/components/ui/form-field';
+import { YandexAuthButton } from '@/components/auth/yandex-auth-button';
 
 export function SignupForm() {
   const t = useTranslations('Auth.Signup');
@@ -33,9 +34,10 @@ export function SignupForm() {
   const onSubmit = handleSubmit(async (values) => {
     setFormError(undefined);
 
+    const callbackURL = getPathname({ locale, href: '/dashboard' });
     const { error } = await signUp.email({
       ...values,
-      callbackURL: getPathname({ locale, href: '/dashboard' }),
+      callbackURL,
     });
 
     if (error) {
@@ -46,6 +48,16 @@ export function SignupForm() {
       setFormError(
         isExistingUser ? t('errors.userAlreadyExists') : t('errors.default'),
       );
+      return;
+    }
+
+    const { error: verificationError } = await sendVerificationEmail({
+      email: values.email,
+      callbackURL,
+    });
+
+    if (verificationError) {
+      setFormError(t('errors.default'));
       return;
     }
 
@@ -94,6 +106,8 @@ export function SignupForm() {
       >
         {isSubmitting ? t('submitting') : t('submit')}
       </button>
+
+      <YandexAuthButton />
 
       <p className='typo-body-small'>
         {t('hasAccount')}{' '}

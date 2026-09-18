@@ -36,7 +36,7 @@ const cards: HeroCard[] = [
 export function HeroCards() {
   const t = useTranslations('Landing.Hero');
   return (
-    <div className='grid aspect-square w-full grid-cols-2 gap-1 overflow-hidden rounded-lg'>
+    <div className='grid w-full grid-cols-1 gap-1 overflow-hidden rounded-lg lg:aspect-square lg:grid-cols-2'>
       {cards.map(({ key, Icon }) => (
         <div key={key} className='relative aspect-square min-w-0 overflow-hidden rounded-lg'>
           <Image

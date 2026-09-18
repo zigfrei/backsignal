@@ -8,6 +8,7 @@ type AuthEmailMessage = Omit<EmailMessage, 'from' | 'replyTo'> & {
 };
 
 let emailSender: EmailSender | undefined;
+let notificationSender: EmailSender | undefined;
 
 function getRequiredEnvironmentVariable(name: string) {
   const value = process.env[name];
@@ -39,6 +40,15 @@ function getEmailSender(): EmailSender {
 
 export function sendEmail(message: EmailMessage): Promise<EmailSendResult> {
   return getEmailSender().send(message);
+}
+
+export function sendNotificationEmail(message: EmailMessage): Promise<EmailSendResult> {
+  if (!notificationSender) {
+    const provider = process.env.EMAIL_PROVIDER ?? 'resend';
+    if (provider !== 'resend') throw new Error(`Unsupported email provider: ${provider}`);
+    notificationSender = new ResendEmailSender(getRequiredEnvironmentVariable('RESEND_NOTIFICATION_API_KEY'));
+  }
+  return notificationSender.send(message);
 }
 
 export function sendAuthEmail(

@@ -5,6 +5,7 @@ export interface EmailMessage {
   html: string;
   text?: string;
   replyTo?: string;
+  idempotencyKey?: string;
 }
 
 export interface EmailSendResult {
@@ -13,4 +14,10 @@ export interface EmailSendResult {
 
 export interface EmailSender {
   send(message: EmailMessage): Promise<EmailSendResult>;
+}
+
+export class EmailDeliveryError extends Error {
+  constructor(public readonly code: string, public readonly retryable: boolean, public readonly uncertain: boolean = false) {
+    super(`Email delivery failed: ${code}`);
+  }
 }

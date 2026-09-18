@@ -12,7 +12,6 @@ const inter = Inter({
   display: 'swap',
 });
 
-const allowIndexing = process.env.NEXT_PUBLIC_ALLOW_INDEXING === 'true';
 // const yandexMetrikaId = process.env.NEXT_PUBLIC_YANDEX_METRIKA_ID;
 // const googleTagManagerId = process.env.NEXT_PUBLIC_GOOGLE_TAG_MANAGER_ID;
 // const yandexWebmasterVerification = process.env.YANDEX_WEBMASTER_VERIFICATION;
@@ -21,8 +20,8 @@ const allowIndexing = process.env.NEXT_PUBLIC_ALLOW_INDEXING === 'true';
 export const metadata: Metadata = {
   // metadataBase: new URL('https://backsignal.tech'),
   robots: {
-    index: allowIndexing,
-    follow: allowIndexing,
+    index: false,
+    follow: false,
   },
   // verification: yandexWebmasterVerification
   //   ? {

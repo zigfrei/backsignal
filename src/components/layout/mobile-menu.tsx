@@ -5,14 +5,21 @@ import clsx from 'clsx';
 import { Link, usePathname } from '@/i18n/navigation';
 import { type ReactNode, useEffect, useId, useState } from 'react';
 import Logo from '@/assets/icons/logo.svg';
+import EnLogo from '@/assets/icons/en/logo.svg';
+import { useLocale, useTranslations } from 'next-intl';
 import { isMenuItemActive, type MenuItem } from './menu-item';
 
 interface MobileMenuProps {
+  variant?: 'marketing' | 'auth';
   items: MenuItem[];
   authActions: ReactNode;
 }
 
-export function MobileMenu({ items, authActions }: MobileMenuProps) {
+export function MobileMenu({ items, authActions, variant = 'marketing' }: MobileMenuProps) {
+  const t = useTranslations('Layout.MobileMenu');
+  const locale = useLocale();
+  const isMarketing = variant === 'marketing';
+  const LogoComponent = locale === 'en' ? EnLogo : Logo;
   const animationDurationMs = 300;
   const pathname = usePathname();
   const [isMounted, setIsMounted] = useState(false);
@@ -80,13 +87,18 @@ export function MobileMenu({ items, authActions }: MobileMenuProps) {
     <>
       <button
         type='button'
-        aria-label='Открыть меню'
+        aria-label={t('open')}
         aria-expanded={isMounted}
         aria-controls={dialogId}
-        className='flex h-10 w-10 items-center justify-center border-[3px] border-base-black bg-primary'
+        className='flex h-10 w-10 items-center justify-center'
         onClick={openMenu}
       >
-        <Bars3Icon className='h-6 w-6 [&>path]:stroke-[2]' />
+        <Bars3Icon
+          className={clsx(
+            'h-10 w-10 [&>path]:stroke-[2]',
+            isMarketing ? 'text-white' : 'text-base-black',
+          )}
+        />
       </button>
 
       {isMounted && (
@@ -94,12 +106,12 @@ export function MobileMenu({ items, authActions }: MobileMenuProps) {
           id={dialogId}
           role='dialog'
           aria-modal='true'
-          aria-label='Мобильное меню'
+          aria-label={t('title')}
           className='fixed inset-0 z-[70] lg:hidden'
         >
           <button
             type='button'
-            aria-label='Закрыть меню'
+            aria-label={t('close')}
             className={clsx(
               'absolute inset-0 bg-base-black/45 transition-opacity duration-300 ease-out',
               isVisible ? 'opacity-100' : 'opacity-0',
@@ -108,18 +120,18 @@ export function MobileMenu({ items, authActions }: MobileMenuProps) {
           />
           <div
             className={clsx(
-              'relative z-10 ml-auto flex h-auto w-full flex-col gap-8 bg-primary p-4 transition-all duration-300 ease-out',
+              'relative z-10 ml-auto flex h-auto w-full flex-col gap-8 bg-main-background p-4 transition-all duration-300 ease-out',
               isVisible ? 'opacity-100' : 'opacity-0',
             )}
           >
             <div className='flex items-center justify-between'>
-              <Link href='/' aria-label='На главную' className='inline-block' onClick={closeMenu}>
-                <Logo className='w-[195px] h-[44px] [&_path]:fill-[var(--color-base-black)]' />
+              <Link href='/' aria-label={t('home')} className='inline-block' onClick={closeMenu}>
+                <LogoComponent className='h-[60px] w-auto cursor-pointer transition-transform duration-300 ease-out hover:scale-105' />
               </Link>
               <button
                 type='button'
-                aria-label='Закрыть меню'
-                className='flex h-10 w-10 items-center justify-center border-[3px] border-base-black bg-primary'
+                aria-label={t('close')}
+                className='flex h-10 w-10 items-center justify-center rounded-lg text-base-black transition-colors hover:bg-primary/10'
                 onClick={closeMenu}
               >
                 <XMarkIcon className='h-6 w-6 [&>path]:stroke-[2]' />

@@ -33,7 +33,7 @@ export function Header() {
 
   return (
     <header className='fixed top-0 z-50 w-full bg-main-background border-b-[1px] border-quaternary'>
-      <div className='w-full p-4 lg:px-12 lg:py-0 h-20 max-w-[1440px] flex items-center justify-between mx-auto'>
+      <div className='w-full p-4 lg:px-12 lg:py-0 h-23 max-w-[1440px] flex items-center justify-between mx-auto'>
         <Link href='/' aria-label={t('aria-label')} className='inline-block'>
           <LogoComponent className='h-[60px] w-auto cursor-pointer transition-transform duration-300 ease-out hover:scale-105' />
         </Link>
@@ -44,9 +44,9 @@ export function Header() {
 
         <div className='flex items-center justify-center gap-4'>
           <LocaleSwitcher />
-          {/* <HeaderAuthActions /> */}
           <div className='lg:hidden'>
             <MobileMenu
+              variant='auth'
               items={menuItems}
               authActions={<div />}
             />

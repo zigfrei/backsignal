@@ -29,6 +29,20 @@ enum MessageStatus {
   ARCHIVED
 }
 
+enum MessageMood {
+  POSITIVE
+  NEUTRAL
+  NEGATIVE
+}
+
+enum EmailNotificationStatus {
+  PENDING
+  PROCESSING
+  SENT
+  FAILED
+  CANCELED
+}
+
 enum SubscriptionPlan {
   FREE
   PRO
@@ -42,16 +56,17 @@ enum SubscriptionStatus {
 }
 
 model User {
-  id            String       @id @default(cuid())
-  name          String
-  email         String       @unique
-  emailVerified Boolean      @default(false)
-  image         String?
-  createdAt     DateTime     @default(now())
-  updatedAt     DateTime     @updatedAt
-  memberships   Membership[]
-  sessions      Session[]
-  accounts      Account[]
+  id                 String              @id @default(cuid())
+  name               String
+  email              String              @unique
+  emailVerified      Boolean             @default(false)
+  image              String?
+  createdAt          DateTime            @default(now())
+  updatedAt          DateTime            @updatedAt
+  memberships        Membership[]
+  sessions           Session[]
+  accounts           Account[]
+  emailNotifications EmailNotification[]
 
   @@map("users")
 }
@@ -137,6 +152,7 @@ model OrganizationSettings {
   organizationId     String       @unique
   emailNotifications Boolean      @default(true)
   notificationEmail  String?
+  notificationLocale String       @default("ru")
   defaultLocale      String       @default("ru")
   enabledLocales     String[]     @default(["ru"])
   createdAt          DateTime     @default(now())
@@ -183,20 +199,63 @@ model FeedbackChannel {
 }
 
 model Message {
-  id         String          @id @default(cuid())
-  channelId  String
-  text       String
-  locale     String          @default("ru")
-  status     MessageStatus   @default(NEW)
-  readAt     DateTime?
-  archivedAt DateTime?
-  createdAt  DateTime        @default(now())
-  updatedAt  DateTime        @updatedAt
-  channel    FeedbackChannel @relation(fields: [channelId], references: [id], onDelete: Cascade)
+  id                 String              @id @default(cuid())
+  channelId          String
+  text               String
+  mood               MessageMood         @default(NEUTRAL)
+  submissionId       String?
+  locale             String              @default("ru")
+  status             MessageStatus       @default(NEW)
+  readAt             DateTime?
+  archivedAt         DateTime?
+  createdAt          DateTime            @default(now())
+  updatedAt          DateTime            @updatedAt
+  channel            FeedbackChannel     @relation(fields: [channelId], references: [id], onDelete: Cascade)
+  emailNotifications EmailNotification[]
 
+  @@unique([channelId, submissionId])
   @@index([channelId, status, createdAt])
   @@index([status, createdAt])
   @@map("messages")
+}
+
+model PublicRateLimit {
+  key       String   @id
+  count     Int      @default(1)
+  expiresAt DateTime
+
+  @@index([expiresAt])
+  @@map("public_rate_limits")
+}
+
+model EmailNotification {
+  id              String                  @id @default(cuid())
+  messageId       String
+  recipientUserId String
+  origin          String
+  recipientEmail  String
+  senderEmail     String
+  subject         String
+  html            String
+  text            String
+  status          EmailNotificationStatus @default(PENDING)
+  attempts        Int                     @default(0)
+  nextAttemptAt   DateTime                @default(now())
+  firstAttemptAt  DateTime?
+  lockedUntil     DateTime?
+  lockToken       String?
+  uncertain       Boolean                 @default(false)
+  lastErrorCode   String?
+  providerEmailId String?
+  sentAt          DateTime?
+  createdAt       DateTime                @default(now())
+  updatedAt       DateTime                @updatedAt
+  message         Message                 @relation(fields: [messageId], references: [id], onDelete: Cascade)
+  recipient       User                    @relation(fields: [recipientUserId], references: [id], onDelete: Cascade)
+
+  @@unique([messageId, recipientUserId])
+  @@index([origin, status, nextAttemptAt])
+  @@map("email_notifications")
 }
 
 model Subscription {

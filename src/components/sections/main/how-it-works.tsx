@@ -1,8 +1,7 @@
 import SectionBlock from '@/components/ui/section';
 import { HowItWorksCard } from './how-it-works-card';
-import { BigLinkButton } from '@/components/ui/links';
-import { ArrowRightIcon } from '@heroicons/react/24/outline';
 import { FeedbackLoop } from './feedback-loop';
+import { LandingCta } from './landing-cta';
 import { useTranslations } from 'next-intl';
 
 const steps = ['01', '02', '03'] as const;
@@ -47,17 +46,10 @@ export default function HowItWorks() {
 
       <FeedbackLoop />
 
-      <BigLinkButton
-        href='/#'
+      <LandingCta
+        guestLabel={t('CTA')}
         className='group w-full max-w-[420px] justify-center self-center gap-0 lg:w-auto lg:max-w-none'
-      >
-        <span className='px-2'>{t('CTA')}</span>
-
-        <ArrowRightIcon
-          aria-hidden='true'
-          className='size-6 shrink-0 transition-transform duration-300 ease-in-out group-hover:translate-x-1'
-        />
-      </BigLinkButton>
+      />
     </SectionBlock>
   );
 }
