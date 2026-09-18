@@ -4,7 +4,7 @@ import '../globals.css';
 import { NextIntlClientProvider } from 'next-intl';
 import { getLocale } from 'next-intl/server';
 import { routing } from '@/i18n/routing';
-// import { YandexMetrika } from '@/components/analytics/yandex-metrika';
+import { YandexMetrika } from '@/components/analytics/yandex-metrika';
 // import { GoogleTagManager } from '@/components/analytics/google-tag-manager';
 
 const inter = Inter({
@@ -12,9 +12,9 @@ const inter = Inter({
   display: 'swap',
 });
 
-// const yandexMetrikaId = process.env.NEXT_PUBLIC_YANDEX_METRIKA_ID;
+const yandexMetrikaId = process.env.NEXT_PUBLIC_YANDEX_METRIKA_ID;
 // const googleTagManagerId = process.env.NEXT_PUBLIC_GOOGLE_TAG_MANAGER_ID;
-// const yandexWebmasterVerification = process.env.YANDEX_WEBMASTER_VERIFICATION;
+const yandexWebmasterVerification = process.env.YANDEX_WEBMASTER_VERIFICATION;
 
 
 export const metadata: Metadata = {
@@ -23,11 +23,11 @@ export const metadata: Metadata = {
     index: false,
     follow: false,
   },
-  // verification: yandexWebmasterVerification
-  //   ? {
-  //       yandex: yandexWebmasterVerification,
-  //     }
-  //   : undefined,
+  verification: yandexWebmasterVerification
+    ? {
+        yandex: yandexWebmasterVerification,
+      }
+    : undefined,
   icons: {
     icon: [
       { url: '/favicon.ico' },
@@ -58,7 +58,7 @@ export default async function RootLayout({
         <NextIntlClientProvider>
           {/* {googleTagManagerId ? <GoogleTagManager containerId={googleTagManagerId} /> : null} */}
           {children}
-          {/* {yandexMetrikaId ? <YandexMetrika counterId={yandexMetrikaId} /> : null} */}
+          {yandexMetrikaId ? <YandexMetrika counterId={yandexMetrikaId} /> : null}
         </NextIntlClientProvider>
       </body>
     </html>
