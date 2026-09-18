@@ -4,6 +4,7 @@ import '../globals.css';
 import { NextIntlClientProvider } from 'next-intl';
 import { getLocale } from 'next-intl/server';
 import { routing } from '@/i18n/routing';
+import { SnackbarProvider } from '@/components/ui/snackbar';
 import { YandexMetrika } from '@/components/analytics/yandex-metrika';
 // import { GoogleTagManager } from '@/components/analytics/google-tag-manager';
 
@@ -56,9 +57,11 @@ export default async function RootLayout({
         className='bg-main-background text-base-black flex min-h-dvh flex-col items-center justify-start'
       >
         <NextIntlClientProvider>
-          {/* {googleTagManagerId ? <GoogleTagManager containerId={googleTagManagerId} /> : null} */}
-          {children}
-          {yandexMetrikaId ? <YandexMetrika counterId={yandexMetrikaId} /> : null}
+          <SnackbarProvider>
+            {/* {googleTagManagerId ? <GoogleTagManager containerId={googleTagManagerId} /> : null} */}
+            {children}
+            {yandexMetrikaId ? <YandexMetrika counterId={yandexMetrikaId} /> : null}
+          </SnackbarProvider>
         </NextIntlClientProvider>
       </body>
     </html>

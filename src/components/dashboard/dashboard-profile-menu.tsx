@@ -13,9 +13,10 @@ import {
 } from '@heroicons/react/24/outline';
 import Image from 'next/image';
 import { useLocale, useTranslations } from 'next-intl';
-import { useState, useTransition } from 'react';
-import { Link, usePathname, useRouter } from '@/i18n/navigation';
+import { useState } from 'react';
+import { Link } from '@/i18n/navigation';
 import { routing, type Locale } from '@/i18n/routing';
+import { useLocaleNavigation } from '@/components/layout/locale-switcher/use-locale-navigation';
 import { useDashboardLogout } from './use-dashboard-logout';
 import type { DashboardUser } from './dashboard-sidebar';
 
@@ -35,25 +36,13 @@ export function DashboardProfileMenu({
   const languages = useTranslations('Layout.LocaleSwitcher.languages');
   const logout = useTranslations('Auth.Logout');
   const locale = useLocale();
-  const pathname = usePathname();
-  const router = useRouter();
   const [open, setOpen] = useState(false);
-  const [pending, startTransition] = useTransition();
+  const { changeLocale, isPending: pending } = useLocaleNavigation(() => setOpen(false));
   const { loggingOut, error, handleLogout } = useDashboardLogout(() => {
     setOpen(false);
     onNavigate?.();
   });
   const [failedImage, setFailedImage] = useState<string>();
-
-  function changeLocale(next: Locale) {
-    setOpen(false);
-    if (locale === next) return;
-    const destination =
-      pathname + window.location.search + window.location.hash;
-    startTransition(() =>
-      router.replace(destination, { locale: next, scroll: false }),
-    );
-  }
 
   return (
     <Menu.Root open={open} onOpenChange={setOpen}>
@@ -148,7 +137,7 @@ export function DashboardProfileMenu({
                           key={language}
                           value={language}
                           disabled={pending}
-                          closeOnClick
+                          closeOnClick={false}
                           className={item}
                         >
                           <span>{languages(language)}</span>

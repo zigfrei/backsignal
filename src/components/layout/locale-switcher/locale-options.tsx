@@ -2,9 +2,8 @@
 
 import { CheckIcon } from '@heroicons/react/24/outline';
 import { useLocale, useTranslations } from 'next-intl';
-import { useTransition } from 'react';
-import { usePathname, useRouter } from '@/i18n/navigation';
-import { routing, type Locale } from '@/i18n/routing';
+import { routing } from '@/i18n/routing';
+import { useLocaleNavigation } from './use-locale-navigation';
 
 interface LocaleOptionsProps {
   onSelect: () => void;
@@ -12,28 +11,8 @@ interface LocaleOptionsProps {
 
 export function LocaleOptions({ onSelect }: LocaleOptionsProps) {
   const locale = useLocale();
-  const pathname = usePathname();
-  const router = useRouter();
   const t = useTranslations('Layout.LocaleSwitcher');
-  const [isPending, startTransition] = useTransition();
-
-  const changeLocale = (nextLocale: Locale) => {
-    onSelect();
-
-    if (nextLocale === locale) {
-      return;
-    }
-
-    const destination =
-      pathname + window.location.search + window.location.hash;
-
-    startTransition(() => {
-      router.replace(destination, {
-        locale: nextLocale,
-        scroll: false,
-      });
-    });
-  };
+  const { changeLocale, isPending } = useLocaleNavigation(onSelect);
 
   return (
     <div className='flex flex-col gap-2' aria-busy={isPending}>
