@@ -56,19 +56,24 @@ export const auth = betterAuth({
     },
   },
   emailVerification: {
-    // Signup returns a generic success response for an existing email and does
-    // not resend verification automatically. The signup form explicitly calls
-    // sendVerificationEmail after success so new and existing unverified users
-    // follow the same non-enumerating flow and receive exactly one email.
-    sendOnSignUp: false,
+    // OAuth signup (Yandex reports emailVerified=false) dispatches verification.
+    // Password signup still uses the form's explicit sendVerificationEmail call
+    // for both new/existing addresses, without sending two emails to new users.
+    sendOnSignUp: true,
     sendOnSignIn: true,
     autoSignInAfterVerification: true,
     expiresIn: 60 * 60,
     sendVerificationEmail: async ({ user, url }, request) => {
+      if (request && new URL(request.url).pathname.endsWith('/sign-up/email')) return;
+      const yandexAccount = await prisma.account.findFirst({
+        where: { userId: user.id, providerId: 'yandex' },
+        select: { id: true },
+      });
       const message = createVerificationEmail({
         locale: getEmailLocale(request),
         name: user.name,
         url,
+        notificationOnly: Boolean(yandexAccount),
       });
 
       await sendAuthEmail({

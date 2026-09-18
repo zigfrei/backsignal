@@ -3,9 +3,9 @@ import { spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import { parse } from 'dotenv';
 
-const [target, option, ...extra] = process.argv.slice(2);
-if (!['stage', 'prod'].includes(target) || extra.length || (option && !['--check', '--status'].includes(option))) {
-  console.error('Usage: node scripts/migrate-environment.mjs stage|prod [--check|--status]');
+const [target, ...options] = process.argv.slice(2);
+if (!['stage', 'prod'].includes(target) || options.some((option) => !['--check', '--status', '--studio'].includes(option)) || new Set(options).size !== options.length || (options.includes('--status') && options.includes('--studio'))) {
+  console.error('Usage: node scripts/migrate-environment.mjs stage|prod [--studio|--status] [--check]');
   process.exit(1);
 }
 
@@ -38,12 +38,18 @@ try {
 
 // Never log credentials or fall back to the application's stage .env.
 console.log(`Environment: ${expectedEnvironment}; config: ${filename}; database host: ${database.hostname}`);
-if (option === '--check') {
+if (options.includes('--check')) {
   console.log('Configuration checked. No database connection or migration performed. Verify this host belongs to the intended Neon branch.');
   process.exit(0);
 }
 
-const result = spawnSync('pnpm', ['exec', 'prisma', 'migrate', option === '--status' ? 'status' : 'deploy'], {
+const command = options.includes('--studio')
+  ? ['studio', '--browser', 'none', '--port', target === 'prod' ? '5556' : '5555']
+  : ['migrate', options.includes('--status') ? 'status' : 'deploy'];
+if (options.includes('--studio')) {
+  console.log(`Prisma Studio: http://localhost:${target === 'prod' ? '5556' : '5555'}. Changes in Studio affect the selected database directly.`);
+}
+const result = spawnSync('pnpm', ['exec', 'prisma', ...command], {
   cwd: root,
   stdio: 'inherit',
   env: {
