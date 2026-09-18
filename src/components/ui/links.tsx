@@ -1,10 +1,9 @@
 import { ArrowRightIcon } from '@heroicons/react/24/outline';
+import { Link } from '@/i18n/navigation';
 import clsx from 'clsx';
-import Link, { type LinkProps } from 'next/link';
+import type { ComponentProps } from 'react';
 
-type LinkButtonProps = React.PropsWithChildren<
-  LinkProps & Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, keyof LinkProps>
->;
+type LinkButtonProps = ComponentProps<typeof Link>;
 
 export function LinkButton({ children, className, ...rest }: LinkButtonProps) {
   return (
