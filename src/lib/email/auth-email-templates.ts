@@ -12,6 +12,7 @@ interface AuthEmailTemplateOptions {
   locale: Locale;
   name: string;
   url: string;
+  notificationOnly?: boolean;
 }
 
 function escapeHtml(value: string) {
@@ -59,12 +60,15 @@ export function createVerificationEmail({
   locale,
   name,
   url,
+  notificationOnly = false,
 }: AuthEmailTemplateOptions): AuthEmailTemplate {
   const safeName = escapeHtml(name);
 
   if (locale === 'en') {
     const subject = 'Confirm your Backsignal email';
-    const description = 'Confirm your email address to finish creating your account.';
+    const description = notificationOnly
+      ? 'Confirm your email address to receive notifications about new customer messages. You can already use your account without email notifications.'
+      : 'Confirm your email address to finish creating your account.';
 
     return {
       subject,
@@ -81,7 +85,9 @@ export function createVerificationEmail({
   }
 
   const subject = 'Подтвердите почту в Backsignal';
-  const description = 'Подтвердите адрес электронной почты, чтобы завершить создание аккаунта.';
+  const description = notificationOnly
+    ? 'Подтвердите адрес электронной почты, чтобы получать уведомления о новых сообщениях от клиентов. Кабинетом уже можно пользоваться без уведомлений на почту.'
+    : 'Подтвердите адрес электронной почты, чтобы завершить создание аккаунта.';
 
   return {
     subject,

@@ -16,7 +16,9 @@
     "db:migrate:deploy": "prisma migrate deploy",
     "db:migrate:stage": "node scripts/migrate-environment.mjs stage",
     "db:migrate:prod": "node scripts/migrate-environment.mjs prod",
-    "db:studio": "prisma studio"
+    "db:studio": "prisma studio",
+    "db:studio:stage": "node scripts/migrate-environment.mjs stage --studio",
+    "db:studio:prod": "node scripts/migrate-environment.mjs prod --studio"
   },
   "dependencies": {
     "@base-ui/react": "^1.8.0",

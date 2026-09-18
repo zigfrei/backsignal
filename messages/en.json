@@ -247,7 +247,12 @@
       }
     },
     "Notifications": {
-      "title": "Email notifications", "enabled": "Notify me about new messages", "recipient": "Recipient: {email}", "language": "Email language", "save": "Save", "saving": "Saving…", "success": "Settings saved", "error": "Could not save settings. Please try again.", "unverified": "Verify your account email to receive notifications."
+      "title": "Email notifications", "enabled": "Notify me about new messages", "recipient": "Recipient: {email}", "language": "Email language", "save": "Save", "saving": "Saving…", "success": "Settings saved", "error": "Could not save settings. Please try again.", "unverified": "Verify your account email to receive notifications.",
+      "verifyEmail": "Send verification email",
+      "activationPending": "Notifications will turn on automatically after email verification. You can then disable them here.",
+      "verificationSending": "Sending…",
+      "verificationSent": "Email sent. Follow the link to verify your address and receive new message notifications.",
+      "verificationError": "Could not send the email. Please try again later."
     },
     "language": "Language",
     "openMenu": "Open navigation",

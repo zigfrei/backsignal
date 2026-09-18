@@ -4,12 +4,24 @@ import { readFile } from 'node:fs/promises';
 import ts from 'typescript';
 
 async function load(filename) {
-  const source = await readFile(new URL(`../src/lib/email/${filename}.ts`, import.meta.url), 'utf8');
+  const source = (await readFile(new URL(`../src/lib/email/${filename}.ts`, import.meta.url), 'utf8')).replace("import 'server-only';", '');
   const code = ts.transpileModule(source, { compilerOptions: { module: ts.ModuleKind.ESNext, target: ts.ScriptTarget.ES2022 } }).outputText;
   return import(`data:text/javascript;base64,${Buffer.from(code).toString('base64')}`);
 }
 const { createFeedbackEmail } = await load('feedback-email-template');
 const { retryNotification } = await load('notification-policy');
+const { createVerificationEmail } = await load('auth-email-templates');
+
+test('Yandex verification explains notifications without blocking dashboard access', () => {
+  for (const locale of ['ru', 'en']) {
+    const email = createVerificationEmail({ locale, name: '<User>', url: 'https://backsignal.tech/api/auth/verify-email?token=test', notificationOnly: true });
+    assert.ok(email.text.includes(locale === 'ru' ? 'уведомления о новых сообщениях' : 'notifications about new customer messages'));
+    assert.ok(email.html.includes('&lt;User&gt;'));
+    assert.ok(email.html.includes('token=test'));
+    const passwordEmail = createVerificationEmail({ locale, name: 'User', url: 'https://backsignal.tech/api/auth/verify-email?token=test' });
+    assert.ok(passwordEmail.text.includes(locale === 'ru' ? 'завершить создание аккаунта' : 'finish creating your account'));
+  }
+});
 const base = { name: '<script>Shop</script>', text: '<img src=x> & feedback', mood: 'NEUTRAL', origin: 'https://stage.backsignal.tech', messageId: 'message-id', stage: true };
 
 test('RU email escapes untrusted data and links to its own environment', () => {
