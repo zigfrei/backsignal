@@ -2,7 +2,7 @@
 
 import { ChevronRightIcon } from '@heroicons/react/24/outline';
 import { useTranslations } from 'next-intl';
-import { useState, useTransition } from 'react';
+import { useCallback, useEffect, useRef, useState, useTransition } from 'react';
 import { markMessageRead } from '@/actions/messages';
 import { MoodIcon } from '@/components/ui/mood-icon';
 import type { moods } from '@/lib/public-feedback-schema';
@@ -30,10 +30,13 @@ export function MessageCard({
   const [open, setOpen] = useState(initiallyOpen);
   const [error, setError] = useState(false);
   const [pending, startTransition] = useTransition();
+  const reading = useRef(false);
+  const initiallyReadMessage = useRef<string | null>(null);
   const isNew = message.status === 'NEW' && !read;
 
-  function markRead() {
-    if (!isNew || pending) return;
+  const markRead = useCallback(() => {
+    if (!isNew || reading.current) return;
+    reading.current = true;
     setError(false);
     startTransition(async () => {
       try {
@@ -42,9 +45,18 @@ export function MessageCard({
         else setError(true);
       } catch {
         setError(true);
+      } finally {
+        reading.current = false;
       }
     });
-  }
+  }, [isNew, message.id, startTransition]);
+
+  // An email deep link is rendered open already; hydration need not fire onToggle.
+  useEffect(() => {
+    if (!initiallyOpen || initiallyReadMessage.current === message.id) return;
+    initiallyReadMessage.current = message.id;
+    markRead();
+  }, [initiallyOpen, message.id, markRead]);
 
   return (
     <li
