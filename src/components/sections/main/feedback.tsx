@@ -2,12 +2,12 @@ import {
   BoltIcon,
   HeartIcon,
   LinkIcon,
-  QrCodeIcon,
   ShieldCheckIcon,
 } from '@heroicons/react/24/outline';
 import { CopyButton } from '@/components/ui/copy-button';
 import SectionBlock from '@/components/ui/section';
 import { useTranslations } from 'next-intl';
+import FeedbackQr from '@/assets/qr/backsignal-d9765fd4-5273-4e65-a829-ef0bbb86154e.svg';
 
 const benefits = [
   {
@@ -21,7 +21,7 @@ const benefits = [
   },
 ];
 
-const feedbackUrl = 'https://backsignal.tech/f/demo-7k2m';
+const feedbackUrl = 'https://backsignal.tech/q/d9765fd4-5273-4e65-a829-ef0bbb86154e';
 
 export default function Feedback() {
   const t = useTranslations('Landing.Feedback');
@@ -75,13 +75,11 @@ export default function Feedback() {
 
         <div className='relative z-10 flex min-w-0 items-center justify-center p-6 pt-0 sm:p-10 sm:pt-0 lg:p-12'>
           <div className='flex min-w-0 w-full max-w-md flex-col items-center rounded-2xl bg-base-white p-5 text-center shadow-xl sm:p-8'>
-            <div
+            <FeedbackQr
               role='img'
               aria-label={t('note1')}
-              className='flex aspect-square w-full max-w-64 items-center justify-center rounded-xl border-2 border-dashed border-divider bg-main-background text-text-muted'
-            >
-              <QrCodeIcon aria-hidden='true' className='size-32 stroke-1' />
-            </div>
+              className='aspect-square h-auto w-full max-w-64 bg-base-white'
+            />
 
             <p className='mt-5 typo-body text-text-secondary'>
               {t('note2')}
@@ -100,7 +98,7 @@ export default function Feedback() {
               >
                 <LinkIcon aria-hidden='true' className='size-6 shrink-0 stroke-2' />
                 <span className='min-w-0 truncate typo-body font-semibold'>
-                  backsignal.tech/f/demo-7k2m
+                  {feedbackUrl.replace('https://', '')}
                 </span>
               </a>
               <CopyButton value={feedbackUrl} />
