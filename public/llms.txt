@@ -1,0 +1,15 @@
+# Back signal / Обратный сигнал
+
+> A service for private customer feedback: a customer scans a QR code and sends a message without registering; the business receives the message directly. / Сервис для прямой обратной связи: клиент сканирует QR-код и пишет без регистрации, а сообщение получает бизнес.
+
+This file describes the public product pages only. Private dashboards and customer messages are not public documentation.
+
+## Product information
+
+- [Русский: Обратный сигнал](https://backsignal.tech/markdown/landing.ru.md): Описание сервиса, сценариев использования, процесса и ответы на вопросы.
+- [English: Back signal](https://backsignal.tech/markdown/landing.en.md): Product overview, use cases, process and frequently asked questions.
+
+## Original pages
+
+- [Русская версия сайта](https://backsignal.tech/): Основная публичная страница.
+- [English website](https://backsignal.tech/en): Main public page in English.

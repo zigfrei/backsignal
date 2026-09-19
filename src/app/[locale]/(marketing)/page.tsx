@@ -27,6 +27,11 @@ export async function generateMetadata(): Promise<Metadata> {
         ru: '/',
         en: '/en',
       },
+      types: {
+        'text/markdown': locale === 'ru'
+          ? '/markdown/landing.ru.md'
+          : '/markdown/landing.en.md',
+      },
     },
     openGraph: {
       title: t('title'),
