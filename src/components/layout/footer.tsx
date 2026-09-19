@@ -58,7 +58,7 @@ export function Footer() {
           </div>
           <div className='w-full flex flex-col items-start lg:items-end justify-between gap-4'>
             <Link
-              href='/politika-konfidencialnosti'
+              href='/policy'
               className='typo-body text-base-black inline-block border-b-[1px] border-transparent hover:border-primary hover:text-primary transition-[color,border-color] duration-200'
             >
               {t('links.privacy')}

@@ -33,13 +33,13 @@ export default function CTA() {
           </p>
         </div>
 
-        <div className='relative aspect-[627/522] w-full self-end lg:h-full lg:min-h-[32rem] lg:aspect-auto'>
+        <div className='relative aspect-[627/522] w-full max-w-[600px] justify-self-center lg:aspect-auto lg:h-full lg:min-h-[32rem] lg:justify-self-end lg:self-end'>
           <Image
             src={t('CTAImage.imagePath')}
             alt={t('CTAImage.imageAlt')}
             fill
-            sizes='(min-width: 1024px) 50vw, 100vw'
-            className='origin-bottom-right object-contain object-bottom-right lg:scale-105'
+            sizes='(min-width: 1024px) 600px, (min-width: 632px) 600px, calc(100vw - 2rem)'
+            className='object-contain object-center lg:object-bottom-right'
           />
         </div>
       </div>

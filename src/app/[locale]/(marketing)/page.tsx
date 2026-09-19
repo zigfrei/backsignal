@@ -6,6 +6,8 @@ import HowItWorks from '@/components/sections/main/how-it-works';
 import CTA from '@/components/sections/main/cta';
 import Feedback from '@/components/sections/main/feedback';
 import { getLocale, getTranslations } from 'next-intl/server';
+import { redirect } from '@/i18n/navigation';
+import { getCurrentSession } from '@/data/auth';
 
 import { faqItemKeys } from '@/lib/landing-faq';
 
@@ -46,8 +48,13 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function Home() {
-  const [locale, faq, meta] = await Promise.all([
+  const [session, locale] = await Promise.all([
+    getCurrentSession(),
     getLocale(),
+  ]);
+  if (session) redirect({ href: '/dashboard', locale });
+
+  const [faq, meta] = await Promise.all([
     getTranslations('Landing.FAQ'),
     getTranslations('Meta.Landing'),
   ]);

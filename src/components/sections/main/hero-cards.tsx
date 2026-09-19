@@ -36,15 +36,15 @@ const cards: HeroCard[] = [
 export function HeroCards() {
   const t = useTranslations('Landing.Hero');
   return (
-    <div className='grid w-full grid-cols-1 gap-1 overflow-hidden rounded-lg lg:aspect-square lg:grid-cols-2'>
+    <div className='mx-auto grid w-full max-w-[600px] grid-cols-1 gap-1 overflow-hidden rounded-lg lg:aspect-square lg:grid-cols-2'>
       {cards.map(({ key, Icon }) => (
         <div key={key} className='relative aspect-square min-w-0 overflow-hidden rounded-lg'>
           <Image
             src={t(`cards.${key}.imagePath`)}
             alt={t(`cards.${key}.alt`)}
             fill
-            sizes='(min-width: 1280px) 25vw, 50vw'
-            className='object-cover'
+            sizes='(min-width: 1024px) 300px, (min-width: 632px) 600px, calc(100vw - 2rem)'
+            className='object-cover object-center'
           />
           <CardLabel
             icon={Icon}

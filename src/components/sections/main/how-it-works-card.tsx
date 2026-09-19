@@ -32,13 +32,13 @@ export function HowItWorksCard({
       <p className='mt-3 typo-body text-text-secondary'>{description}</p>
 
       <div className='mt-auto w-full pt-4'>
-        <div className='relative aspect-square w-full'>
+        <div className='relative mx-auto aspect-square w-full max-w-[600px]'>
           <Image
             src={image}
             alt={imageAlt}
             fill
-            sizes='(min-width: 1024px) 30vw, 100vw'
-            className='rounded-lg object-cover'
+            sizes='(min-width: 1024px) 400px, (min-width: 672px) 600px, calc(100vw - 4rem)'
+            className='rounded-lg object-cover object-center'
           />
         </div>
       </div>

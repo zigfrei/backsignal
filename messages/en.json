@@ -44,6 +44,41 @@
       "copyright": "Back signal. All rights reserved."
     }
   },
+  "Policy": {
+    "title": "Privacy Policy",
+    "intro": "This policy describes the data processed when you use Back signal and how to contact us about your personal data.",
+    "sections": {
+      "operator": {
+        "title": "Who processes your data",
+        "body": "Back signal is operated by Georgy as an individual. For questions about personal data, contact georgyrevazashvili@yandex.ru."
+      },
+      "data": {
+        "title": "Data we receive",
+        "body": "When you create an account or sign in: your name, email address, account and session information. When you sign in with Yandex ID: profile data you authorize Yandex to share with us. When you send feedback: your message, selected mood, date and technical information needed to operate and protect the form. You do not need an account to send feedback."
+      },
+      "purposes": {
+        "title": "Why we use data",
+        "body": "We use this data to provide registration and sign-in, the dashboard, delivery of feedback to the relevant business, service emails and notifications, security, and error resolution. The message text is available to the owner of the relevant feedback page."
+      },
+      "sharing": {
+        "title": "Service providers and transfers",
+        "body": "We use external providers for hosting, database services and email delivery: Vercel, Neon and Resend. Signing in with Yandex ID involves Yandex. Data may be processed on servers outside Belarus. We do not publish senders' feedback or sell personal data."
+      },
+      "storage": {
+        "title": "Storage and security",
+        "body": "Data is stored while needed to provide the service and meet applicable obligations. Access is restricted using authentication and technical safeguards. To request deletion of your account or associated data, contact the email address above."
+      },
+      "rights": {
+        "title": "Your rights",
+        "body": "You may request information about the processing of your data, correction, cessation of processing or deletion where provided by law, and withdraw consent where processing is based on it. Contact georgyrevazashvili@yandex.ru. You may also contact the National Personal Data Protection Center of the Republic of Belarus."
+      },
+      "cookies": {
+        "title": "Cookies and analytics",
+        "body": "The site uses technical cookies for sign-in and saving preferences. It also uses Yandex Metrica to analyze visits. Processing analytics data and managing consent require separate configuration; this policy does not replace consent controls for analytics cookies."
+      }
+    },
+    "updated": "Version dated 19 September 2026."
+  },
   "Landing": {
     "Common": {
       "authenticatedCta": "Go to dashboard"
@@ -448,6 +483,13 @@
   },
   "Common": {},
   "Meta": {
+    "Policy": {
+      "title": "Privacy Policy — Back signal",
+      "description": "How Back signal processes personal data of account owners and people who send feedback.",
+      "siteName": "Back signal",
+      "openGraphAlt": "Back signal privacy policy",
+      "openGraphImagePath": "/en/og-image.png"
+    },
     "Landing": {
     "title": "Back signal — feedback service for customers",
     "description": "Get feedback from customers directly. Create a company page, place a QR code and learn about complaints, suggestions and problems without public reviews.",
