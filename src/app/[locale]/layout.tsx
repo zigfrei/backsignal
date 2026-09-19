@@ -19,7 +19,7 @@ const yandexWebmasterVerification = process.env.YANDEX_WEBMASTER_VERIFICATION;
 
 
 export const metadata: Metadata = {
-  // metadataBase: new URL('https://backsignal.tech'),
+  metadataBase: new URL('https://backsignal.tech'),
   robots: {
     index: false,
     follow: false,

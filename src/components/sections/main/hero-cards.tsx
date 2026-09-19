@@ -37,7 +37,7 @@ export function HeroCards() {
   const t = useTranslations('Landing.Hero');
   return (
     <div className='mx-auto grid w-full max-w-[600px] grid-cols-1 gap-1 overflow-hidden rounded-lg lg:aspect-square lg:grid-cols-2'>
-      {cards.map(({ key, Icon }) => (
+      {cards.map(({ key, Icon }, index) => (
         <div key={key} className='relative aspect-square min-w-0 overflow-hidden rounded-lg'>
           <Image
             src={t(`cards.${key}.imagePath`)}
@@ -45,6 +45,8 @@ export function HeroCards() {
             fill
             sizes='(min-width: 1024px) 300px, (min-width: 632px) 600px, calc(100vw - 2rem)'
             className='object-cover object-center'
+            loading={index === 0 ? 'eager' : 'lazy'}
+            fetchPriority={index === 0 ? 'high' : undefined}
           />
           <CardLabel
             icon={Icon}
