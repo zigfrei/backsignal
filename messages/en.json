@@ -320,7 +320,7 @@
     "closeMenu": "Close navigation",
     "skipToContent": "Skip to content",
     "loading": "Loading…",
-    "sections": { "messages": "Messages", "settings": "Settings", "profile": "Profile", "qr": "Create a design", "qrCode": "QR code only" },
+    "sections": { "messages": "Messages", "telegram": "Connect Telegram", "settings": "Settings", "profile": "Profile", "qr": "Create a design", "qrCode": "QR code only" },
     "QrCode": {
       "title": "QR code only — Backsignal",
       "description": "Download your QR code as SVG for printing or a 2048 × 2048 PNG. The link opens your feedback form."
@@ -521,6 +521,10 @@
     },
     "Dashboard": {
       "title": "Messages — Back signal dashboard",
+      "Telegram": {
+        "title": "Connect Telegram — Back signal",
+        "description": "Connect the Telegram bot to receive notifications about new customer messages."
+      },
       "Settings": {
         "title": "Settings — Back signal dashboard",
         "description": "Organization and location settings in your Back signal dashboard."

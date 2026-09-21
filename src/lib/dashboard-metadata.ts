@@ -4,7 +4,7 @@ import { getLocale, getTranslations } from 'next-intl/server';
 const siteUrl = 'https://backsignal.tech';
 
 export async function getDashboardMetadata(
-  section: 'Settings' | 'Profile',
+  section: 'Settings' | 'Profile' | 'Telegram',
   path: string,
 ): Promise<Metadata> {
   const [locale, t] = await Promise.all([

@@ -5,8 +5,6 @@ import { getCurrentSession } from '@/data/auth';
 import { getUserOnboarding } from '@/data/onboarding';
 import { getOrganizationMessagesPage, getOrganizationMessage } from '@/data/messages';
 import { redirect } from '@/i18n/navigation';
-import { getTelegramConnection, telegramConfigured } from '@/data/telegram-connection';
-import { TelegramConnectionCard } from '@/components/dashboard/telegram-connection-card';
 
 const siteUrl = 'https://backsignal.tech';
 
@@ -58,9 +56,5 @@ export default async function DashboardPage({ searchParams }: { searchParams: Pr
     : { messages: [], total: 0, page: 1, pages: 1 };
   const selected = selectedId && onboarding.summary ? await getOrganizationMessage(session.user.id, onboarding.summary.organizationId, selectedId) : null;
   if (selected && !result.messages.some((message) => message.id === selected.id)) result.messages.unshift(selected);
-  const telegram = onboarding.summary ? await getTelegramConnection(session.user.id) : null;
-  return <div className='flex min-w-0 flex-col gap-6'>
-    {telegram && <TelegramConnectionCard initialState={telegram} configured={telegramConfigured()} />}
-    <MessagesList {...result} expandedMessageId={selected?.id} />
-  </div>;
+  return <MessagesList {...result} expandedMessageId={selected?.id} />;
 }

@@ -6,9 +6,11 @@ import { useTranslations } from 'next-intl';
 import { useRouter } from 'next/navigation';
 import { Link, usePathname } from '@/i18n/navigation';
 import { useDashboardUnreadCount } from './dashboard-unread-context';
+import TelegramIcon from '@/assets/icons/telegram.svg';
 
 const items = [
   { href: '/dashboard', key: 'messages', Icon: ChatBubbleLeftRightIcon },
+  { href: '/dashboard/telegram', key: 'telegram', Icon: TelegramIcon },
   { href: '/dashboard/qr', key: 'qr', Icon: DocumentPlusIcon },
   { href: '/dashboard/qr-code', key: 'qrCode', Icon: QrCodeIcon },
   { href: '/dashboard/settings', key: 'settings', Icon: Cog6ToothIcon },

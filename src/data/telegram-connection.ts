@@ -48,12 +48,18 @@ export async function beginTelegramConnection(userId: string) {
 }
 
 export async function receiveTelegramStart(token: string, chatId: string, telegramUserId: string, username: string | null) {
-  if (!/^[a-zA-Z0-9_-]{43}$/.test(token)) return false;
+  if (!/^[a-zA-Z0-9_-]{43}$/.test(token)) return null;
+  const pendingTokenHash = hashTelegramToken(token);
   const updated = await prisma.telegramConnection.updateMany({
-    where: { pendingTokenHash: hashTelegramToken(token), pendingExpiresAt: { gt: new Date() }, pendingChatId: null, origin: origin() },
+    where: { pendingTokenHash, pendingExpiresAt: { gt: new Date() }, pendingChatId: null, origin: origin() },
     data: { pendingChatId: chatId, pendingTelegramUserId: telegramUserId, pendingUsername: username },
   });
-  return updated.count === 1;
+  if (updated.count !== 1) return null;
+  const connection = await prisma.telegramConnection.findUnique({
+    where: { pendingTokenHash },
+    select: { user: { select: { preferredLocale: true } } },
+  });
+  return connection?.user.preferredLocale === 'en' ? 'en' : 'ru';
 }
 
 export async function confirmTelegramConnection(userId: string) {

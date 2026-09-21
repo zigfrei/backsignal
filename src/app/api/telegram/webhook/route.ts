@@ -1,5 +1,7 @@
 import { timingSafeEqual } from 'node:crypto';
 import { receiveTelegramStart, telegramConfigured } from '@/data/telegram-connection';
+import { notificationOrigin } from '@/lib/email/notification-policy';
+import { sendTelegramMessage } from '@/lib/telegram/send';
 
 export const runtime = 'nodejs';
 
@@ -28,14 +30,13 @@ export async function POST(request: Request) {
   const match = /^\/start(?:@[a-zA-Z0-9_]+)? ([a-zA-Z0-9_-]{43})$/.exec(message.text);
   if (!match) return new Response(null, { status: 200 });
   try {
-    const accepted = await receiveTelegramStart(match[1], String(chat.id), String(from.id), 'username' in from && typeof from.username === 'string' ? from.username.slice(0, 32) : null);
-    if (accepted) {
-      await fetch(`https://api.telegram.org/bot${process.env.TELEGRAM_BOT_TOKEN}/sendMessage`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ chat_id: chat.id, text: 'Вернитесь в кабинет Backsignal и подтвердите подключение Telegram.\n\nReturn to your Backsignal dashboard and confirm the Telegram connection.' }),
-        signal: AbortSignal.timeout(8000),
-      }).catch(() => null);
+    const locale = await receiveTelegramStart(match[1], String(chat.id), String(from.id), 'username' in from && typeof from.username === 'string' ? from.username.slice(0, 32) : null);
+    if (locale) {
+      const dashboardUrl = `${notificationOrigin()}${locale === 'en' ? '/en' : ''}/dashboard/telegram`;
+      const text = locale === 'en'
+        ? `Return to your Backsignal dashboard and confirm the Telegram connection:\n${dashboardUrl}`
+        : `Вернитесь в кабинет «Обратного сигнала» и подтвердите подключение Telegram:\n${dashboardUrl}`;
+      await sendTelegramMessage(String(chat.id), text);
     }
     return new Response(null, { status: 200 });
   } catch {
