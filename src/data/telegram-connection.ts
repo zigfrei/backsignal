@@ -30,8 +30,9 @@ export async function getTelegramConnection(userId: string) {
     connected: Boolean(connection.chatId),
     enabled: connection.enabled,
     username: connection.username,
-    pendingConfirmation: Boolean(connection.pendingChatId),
-  } : { connected: false, enabled: false, username: null, pendingConfirmation: false };
+    pending: Boolean(connection.pendingTokenHash && connection.pendingExpiresAt && connection.pendingExpiresAt > new Date()),
+    pendingConfirmation: Boolean(connection.pendingChatId && connection.pendingExpiresAt && connection.pendingExpiresAt > new Date()),
+  } : { connected: false, enabled: false, username: null, pending: false, pendingConfirmation: false };
 }
 
 export async function beginTelegramConnection(userId: string) {
