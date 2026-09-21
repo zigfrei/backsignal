@@ -286,6 +286,27 @@
         "default": "Could not create the organization. Please try again."
       }
     },
+    "Telegram": {
+      "title": "Telegram notifications",
+      "description": "Connect the bot to receive new feedback in a private Telegram chat, so you don't miss an important message.",
+      "settingsDescription": "Manage delivery of new feedback to your private Telegram chat.",
+      "unavailable": "Telegram connection is not configured yet. Try again later.",
+      "connect": "Connect bot",
+      "openBot": "Open bot in Telegram",
+      "startHint": "Press Start in the bot, then return here and check the connection. The link expires in 15 minutes.",
+      "check": "Check connection",
+      "newLink": "Get a new link",
+      "confirmHint": "Confirm that this is your Telegram account: {username}. If it is not yours, do not confirm.",
+      "unknownAccount": "username hidden",
+      "confirm": "Confirm connection",
+      "connected": "Telegram connected, notifications enabled",
+      "paused": "Telegram connected · notifications paused",
+      "pause": "Pause notifications",
+      "resume": "Resume notifications",
+      "sendTest": "Send test",
+      "disconnect": "Disconnect Telegram",
+      "error": "Could not complete this action. Please try again."
+    },
     "Notifications": {
       "title": "Email notifications", "enabled": "Notify me about new messages", "recipient": "Recipient: {email}", "save": "Save", "saving": "Saving…", "success": "Settings saved", "error": "Could not save settings. Please try again.", "unverified": "Verify your account email to receive notifications.",
       "verifyEmail": "Send verification email",
