@@ -286,6 +286,27 @@
         "default": "Could not create the organization. Please try again."
       }
     },
+    "Telegram": {
+      "title": "Telegram notifications",
+      "description": "Connect the bot to receive new feedback in a private Telegram chat, so you don't miss an important message.",
+      "settingsDescription": "Manage delivery of new feedback to your private Telegram chat.",
+      "unavailable": "Telegram connection is not configured yet. Try again later.",
+      "connect": "Connect Telegram",
+      "openBot": "Return to bot",
+      "waiting": "Press Start in the bot that opened, then return here. We'll check automatically. The link expires in 15 minutes.",
+      "check": "Check now",
+      "newLink": "Start again",
+      "confirmHint": "The bot has started. Is {username} your Telegram account? Confirm only if you recognize it.",
+      "unknownAccount": "username hidden",
+      "confirm": "Yes, this is my Telegram",
+      "connected": "Telegram connected, notifications enabled",
+      "paused": "Telegram connected · notifications paused",
+      "pause": "Pause notifications",
+      "resume": "Resume notifications",
+      "sendTest": "Send test",
+      "disconnect": "Disconnect Telegram",
+      "error": "Could not complete this action. Please try again."
+    },
     "Notifications": {
       "title": "Email notifications", "enabled": "Notify me about new messages", "recipient": "Recipient: {email}", "save": "Save", "saving": "Saving…", "success": "Settings saved", "error": "Could not save settings. Please try again.", "unverified": "Verify your account email to receive notifications.",
       "verifyEmail": "Send verification email",
@@ -299,7 +320,7 @@
     "closeMenu": "Close navigation",
     "skipToContent": "Skip to content",
     "loading": "Loading…",
-    "sections": { "messages": "Messages", "settings": "Settings", "profile": "Profile", "qr": "Create a design", "qrCode": "QR code only" },
+    "sections": { "messages": "Messages", "telegram": "Connect Telegram", "settings": "Settings", "profile": "Profile", "qr": "Create a design", "qrCode": "QR code only" },
     "QrCode": {
       "title": "QR code only — Backsignal",
       "description": "Download your QR code as SVG for printing or a 2048 × 2048 PNG. The link opens your feedback form."
@@ -500,6 +521,10 @@
     },
     "Dashboard": {
       "title": "Messages — Back signal dashboard",
+      "Telegram": {
+        "title": "Connect Telegram — Back signal",
+        "description": "Connect the Telegram bot to receive notifications about new customer messages."
+      },
       "Settings": {
         "title": "Settings — Back signal dashboard",
         "description": "Organization and location settings in your Back signal dashboard."

@@ -18,7 +18,8 @@
     "db:migrate:prod": "node scripts/migrate-environment.mjs prod",
     "db:studio": "prisma studio",
     "db:studio:stage": "node scripts/migrate-environment.mjs stage --studio",
-    "db:studio:prod": "node scripts/migrate-environment.mjs prod --studio"
+    "db:studio:prod": "node scripts/migrate-environment.mjs prod --studio",
+    "telegram:webhook:set": "node scripts/set-telegram-webhook.mjs"
   },
   "dependencies": {
     "@base-ui/react": "^1.8.0",

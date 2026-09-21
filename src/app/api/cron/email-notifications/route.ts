@@ -1,5 +1,6 @@
 import { timingSafeEqual } from 'node:crypto';
 import { processEmailNotifications } from '@/data/email-notifications';
+import { processTelegramNotifications } from '@/data/telegram-notifications';
 
 export const runtime = 'nodejs';
 export const maxDuration = 60;
@@ -10,6 +11,9 @@ export async function GET(request: Request) {
   const actual = Buffer.from(request.headers.get('authorization') ?? '');
   const expected = Buffer.from(`Bearer ${secret}`);
   if (actual.length !== expected.length || !timingSafeEqual(actual, expected)) return Response.json({ error: 'Unauthorized' }, { status: 401 });
-  try { return Response.json(await processEmailNotifications(), { headers: { 'Cache-Control': 'no-store' } }); }
+  try {
+    const [email, telegram] = await Promise.all([processEmailNotifications(), processTelegramNotifications()]);
+    return Response.json({ email, telegram }, { headers: { 'Cache-Control': 'no-store' } });
+  }
   catch { return Response.json({ error: 'Processing failed' }, { status: 500 }); }
 }

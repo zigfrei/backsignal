@@ -24,7 +24,9 @@ export function DashboardShell({
   const router = useRouter();
   const t = useTranslations('Dashboard');
   const section =
-    pathname === '/dashboard/qr-code'
+    pathname === '/dashboard/telegram'
+      ? 'telegram'
+      : pathname === '/dashboard/qr-code'
       ? 'qrCode'
       : pathname === '/dashboard/qr'
       ? 'qr'

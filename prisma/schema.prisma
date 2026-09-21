@@ -43,6 +43,14 @@ enum EmailNotificationStatus {
   CANCELED
 }
 
+enum TelegramNotificationStatus {
+  PENDING
+  PROCESSING
+  SENT
+  FAILED
+  CANCELED
+}
+
 enum SubscriptionPlan {
   FREE
   PRO
@@ -68,6 +76,8 @@ model User {
   sessions           Session[]
   accounts           Account[]
   emailNotifications EmailNotification[]
+  telegramConnections TelegramConnection[]
+  telegramNotifications TelegramNotification[]
 
   @@map("users")
 }
@@ -212,6 +222,7 @@ model Message {
   updatedAt          DateTime            @updatedAt
   channel            FeedbackChannel     @relation(fields: [channelId], references: [id], onDelete: Cascade)
   emailNotifications EmailNotification[]
+  telegramNotifications TelegramNotification[]
 
   @@unique([channelId, submissionId])
   @@index([channelId, status, createdAt])
@@ -256,6 +267,52 @@ model EmailNotification {
   @@unique([messageId, recipientUserId])
   @@index([origin, status, nextAttemptAt])
   @@map("email_notifications")
+}
+
+model TelegramConnection {
+  id                    String   @id @default(cuid())
+  userId                String
+  origin                String
+  chatId                String?  @unique
+  telegramUserId        String?
+  username              String?
+  enabled               Boolean  @default(false)
+  connectedAt           DateTime?
+  pendingTokenHash      String?  @unique
+  pendingExpiresAt      DateTime?
+  pendingChatId         String?
+  pendingTelegramUserId String?
+  pendingUsername       String?
+  createdAt             DateTime @default(now())
+  updatedAt             DateTime @updatedAt
+  user                  User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, origin])
+  @@map("telegram_connections")
+}
+
+model TelegramNotification {
+  id                String                     @id @default(cuid())
+  messageId         String
+  recipientUserId   String
+  origin            String
+  chatId            String
+  status            TelegramNotificationStatus @default(PENDING)
+  attempts          Int                        @default(0)
+  nextAttemptAt     DateTime                   @default(now())
+  lockedUntil       DateTime?
+  lockToken         String?
+  lastErrorCode     String?
+  providerMessageId String?
+  sentAt            DateTime?
+  createdAt         DateTime                   @default(now())
+  updatedAt         DateTime                   @updatedAt
+  message           Message                    @relation(fields: [messageId], references: [id], onDelete: Cascade)
+  recipient         User                       @relation(fields: [recipientUserId], references: [id], onDelete: Cascade)
+
+  @@unique([messageId, recipientUserId])
+  @@index([origin, status, nextAttemptAt])
+  @@map("telegram_notifications")
 }
 
 model Subscription {

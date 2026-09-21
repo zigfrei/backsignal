@@ -3,6 +3,7 @@
 import { headers, cookies } from 'next/headers';
 import { after } from 'next/server';
 import { enqueueFeedbackEmails, processEmailNotifications } from '@/data/email-notifications';
+import { enqueueFeedbackTelegram, processTelegramNotifications } from '@/data/telegram-notifications';
 import { prisma } from '@/lib/prisma';
 import { feedbackSchema } from '@/lib/public-feedback-schema';
 import { consumeAttemptLimit, consumePublicLimit, getClientFingerprint } from '@/data/public-rate-limit';
@@ -19,6 +20,7 @@ export async function submitPublicFeedback(input: unknown): Promise<Result> {
     const { publicId, submissionId, text, mood, locale, website } = parsed.data;
     if (website) return { success: true }; // Honeypot: silently discard automated submissions.
     const notifications: string[] = [];
+    const telegramNotifications: string[] = [];
     const result = await prisma.$transaction(async (tx): Promise<Result> => {
       const channel = await tx.feedbackChannel.findFirst({
         where: { publicId, isActive: true, target: { isActive: true } },
@@ -33,12 +35,17 @@ export async function submitPublicFeedback(input: unknown): Promise<Result> {
       if (!limit.allowed) return { success: false, error: 'rateLimit', retryAfter: limit.retryAfter };
       const message = await tx.message.create({ data: { channelId: channel.id, submissionId, text, mood, locale, status: 'NEW' } });
       notifications.push(...await enqueueFeedbackEmails(tx, message.id));
+      telegramNotifications.push(...await enqueueFeedbackTelegram(tx, message.id));
       return { success: true };
     }, { timeout: 15000 });
     if (result.success && notifications.length) {
       // Scheduling or delivery failure must never report a saved feedback as rejected.
       try { after(async () => { try { await processEmailNotifications(notifications); } catch { console.error('Feedback email processing failed'); } }); }
       catch { console.error('Feedback email scheduling failed'); }
+    }
+    if (result.success && telegramNotifications.length) {
+      try { after(async () => { try { await processTelegramNotifications(telegramNotifications); } catch { console.error('Feedback Telegram processing failed'); } }); }
+      catch { console.error('Feedback Telegram scheduling failed'); }
     }
     return result;
   } catch {
