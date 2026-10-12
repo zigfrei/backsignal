@@ -21,7 +21,7 @@ export async function HeaderAuthActions({
         href='/dashboard'
         className={
           variant === 'desktop'
-            ? 'hidden px-6 py-2 lg:flex'
+            ? 'hidden px-6 py-2 lg:flex text-center'
             : 'w-full justify-center'
         }
       >
@@ -36,7 +36,7 @@ export async function HeaderAuthActions({
         href='/login'
         className={
           variant === 'desktop'
-            ? 'hidden px-6 py-2 lg:flex'
+            ? 'hidden px-6 py-2 lg:flex text-center'
             : 'w-full justify-center'
         }
       >
@@ -46,7 +46,7 @@ export async function HeaderAuthActions({
         href='/signup'
         className={
           variant === 'desktop'
-            ? 'hidden px-6 py-2 lg:flex'
+            ? 'hidden px-6 py-2 lg:flex text-center'
             : 'w-full justify-center'
         }
       >
