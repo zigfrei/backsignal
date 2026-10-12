@@ -12,7 +12,7 @@ export function Footer() {
       <div className='w-full px-4 py-6 lg:px-12 lg:py-16 max-w-[1440px] flex flex-col items-start justify-start mx-auto'>
         <div className='flex w-full flex-col items-start justify-between mx-auto gap-4 lg:flex-row lg:items-stretch lg:gap-16'>
           <div className='w-full flex flex-col items-start justify-start gap-4'>
-            <Link href='/' aria-label={t('aria-label')}>
+            <Link href='/' aria-label={t('aria-label')} className='logo'>
               <LogoComponent className='h-[60px] w-auto cursor-pointer transition-transform duration-300 ease-out hover:scale-105' />
             </Link>
             <p className='typo-body-large text-left'>{t('description')}</p>

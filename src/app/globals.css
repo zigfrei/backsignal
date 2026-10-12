@@ -195,3 +195,32 @@ html {
 body {
   color: var(--color-text-primary);
 }
+
+.logo_svg__feedback-logo__arrow {
+  transition: fill 200ms ease;
+}
+
+/* .logo — ссылка или кнопка, внутри которой находится SVG */
+.logo:hover .logo_svg__feedback-logo__arrow,
+.logo:focus-visible .logo_svg__feedback-logo__arrow {
+  animation: arrow-feedback 550ms ease-in-out;
+}
+
+@keyframes arrow-feedback {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  40% {
+    transform: translateX(-5px);
+  }
+  70% {
+    transform: translateX(2px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .logo:hover .logo_svg__feedback-logo__arrow,
+  .logo:focus-visible .logo_svg__feedback-logo__arrow {
+    animation: none;
+  }
+}

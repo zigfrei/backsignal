@@ -240,7 +240,7 @@
           "answer": "Yes. You can connect the Telegram bot and receive notifications about new customer messages in your private Telegram chat."
         },
         "7": {
-          "question": "How is Backsignal different from a QR code for Yandex Maps reviews?",
+          "question": "How is Backsignal different from a QR code for Google Maps and Yandex Maps reviews?",
           "answer": "A Backsignal QR code opens a private feedback form, not a public platform. The message goes directly to the business, so customers can share a problem, suggestion or request privately."
         }
       }

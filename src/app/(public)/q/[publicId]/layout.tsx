@@ -3,9 +3,11 @@ import { Inter } from 'next/font/google';
 import { PublicFeedbackProvider } from '@/components/public-feedback/public-feedback-provider';
 import { getMessages } from 'next-intl/server';
 import { getPublicFeedbackContext } from '@/data/public-feedback';
+import { GoogleAnalytics } from '@/components/analytics/google-analytics';
 import '@/app/globals.css';
 
 const inter = Inter({ subsets: ['latin', 'cyrillic'], display: 'swap' });
+const googleAnalyticsId = process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID;
 export const metadata: Metadata = {
   robots: { index: false, follow: false },
   icons: { icon: '/favicon.ico', apple: '/apple-touch-icon.png' },
@@ -31,6 +33,7 @@ export default async function PublicFeedbackLayout({
           {children}
         </PublicFeedbackProvider>
       </body>
+      {googleAnalyticsId ? <GoogleAnalytics measurementId={googleAnalyticsId} /> : null}
     </html>
   );
 }

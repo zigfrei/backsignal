@@ -6,7 +6,7 @@ import { getLocale } from 'next-intl/server';
 import { routing } from '@/i18n/routing';
 import { SnackbarProvider } from '@/components/ui/snackbar';
 import { YandexMetrika } from '@/components/analytics/yandex-metrika';
-// import { GoogleTagManager } from '@/components/analytics/google-tag-manager';
+import { GoogleAnalytics } from '@/components/analytics/google-analytics';
 
 const inter = Inter({
   subsets: ['latin', 'cyrillic'],
@@ -14,7 +14,7 @@ const inter = Inter({
 });
 
 const yandexMetrikaId = process.env.NEXT_PUBLIC_YANDEX_METRIKA_ID;
-// const googleTagManagerId = process.env.NEXT_PUBLIC_GOOGLE_TAG_MANAGER_ID;
+const googleAnalyticsId = process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID;
 const yandexWebmasterVerification = process.env.YANDEX_WEBMASTER_VERIFICATION;
 
 
@@ -58,12 +58,12 @@ export default async function RootLayout({
       >
         <NextIntlClientProvider>
           <SnackbarProvider>
-            {/* {googleTagManagerId ? <GoogleTagManager containerId={googleTagManagerId} /> : null} */}
             {children}
             {yandexMetrikaId ? <YandexMetrika counterId={yandexMetrikaId} /> : null}
           </SnackbarProvider>
         </NextIntlClientProvider>
       </body>
+      {googleAnalyticsId ? <GoogleAnalytics measurementId={googleAnalyticsId} /> : null}
     </html>
   );
 }
